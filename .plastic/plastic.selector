@@ -1,0 +1,4 @@
+repository "educational game 2025-05-08_19-30-21/educational game@11270591423659@cloud"
+  path "/"
+    br "/main"
+    co "/main"

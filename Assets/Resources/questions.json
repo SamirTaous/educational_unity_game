@@ -1,0 +1,53 @@
+[
+    {
+      "question": "What color is the sky on a clear day?",
+      "answers": ["Green", "Blue", "Red", "Yellow"],
+      "correctAnswerIndex": 1
+    },
+    {
+      "question": "Which animal says 'meow'?",
+      "answers": ["Dog", "Cow", "Cat", "Duck"],
+      "correctAnswerIndex": 2
+    },
+    {
+      "question": "What number comes after 5?",
+      "answers": ["4", "5", "6", "7"],
+      "correctAnswerIndex": 2
+    },
+    {
+      "question": "Which fruit is yellow?",
+      "answers": ["Apple", "Banana", "Grapes", "Orange"],
+      "correctAnswerIndex": 1
+    },
+    {
+      "question": "What do you wear on your feet?",
+      "answers": ["Hat", "Shirt", "Shoes", "Gloves"],
+      "correctAnswerIndex": 2
+    },
+    {
+      "question": "What shape has 3 sides?",
+      "answers": ["Circle", "Triangle", "Square", "Rectangle"],
+      "correctAnswerIndex": 1
+    },
+    {
+      "question": "How many legs does a spider have?",
+      "answers": ["6", "8", "4", "10"],
+      "correctAnswerIndex": 1
+    },
+    {
+      "question": "Which day comes after Friday?",
+      "answers": ["Thursday", "Saturday", "Monday", "Wednesday"],
+      "correctAnswerIndex": 1
+    },
+    {
+      "question": "What do bees make?",
+      "answers": ["Milk", "Honey", "Juice", "Bread"],
+      "correctAnswerIndex": 1
+    },
+    {
+      "question": "Which is a primary color?",
+      "answers": ["Green", "Purple", "Blue", "Pink"],
+      "correctAnswerIndex": 2
+    }
+]
+  
