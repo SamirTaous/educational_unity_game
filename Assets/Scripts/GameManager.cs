@@ -1,7 +1,8 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class QuizManager : MonoBehaviour
 {
@@ -9,16 +10,15 @@ public class QuizManager : MonoBehaviour
     public Button[] answerButtons;
     public TMP_Text[] answerButtonTexts;
 
-    public TMP_Text feedbackText;
     public TMP_Text progressText;
     public Slider progressBar;
 
-    public GameObject questionPanel;       // Drag: holds question box
-    public GameObject answerPanel;         // Drag: holds the 4 answers
-    public Button nextButton;              // Drag: next button
-    public GameObject finishPanel;         // Drag: panel shown at the end
-    public TMP_Text finishTitleText;       // Drag: "Quiz Complete!" text
-    public TMP_Text finishScoreText;       // Drag: "You got X out of Y" text
+    public GameObject questionPanel;
+    public GameObject answerPanel;
+    public Button nextButton;
+    public GameObject finishPanel;
+    public TMP_Text finishTitleText;
+    public TMP_Text finishScoreText;
 
     private Question[] questions;
     private int currentQuestionIndex = 0;
@@ -54,22 +54,22 @@ public class QuizManager : MonoBehaviour
 
         Question q = questions[currentQuestionIndex];
 
-        // Set progress
         progressText.text = $"{currentQuestionIndex + 1}/{questions.Length}";
         progressBar.value = (float)(currentQuestionIndex + 1) / questions.Length;
 
-        // Show question
         questionText.text = q.question;
-        feedbackText.text = "";
 
-        // Assign answers
         for (int i = 0; i < answerButtons.Length; i++)
         {
             int index = i;
             answerButtonTexts[i].text = q.answers[i];
+
             answerButtons[i].onClick.RemoveAllListeners();
             answerButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
             answerButtons[i].interactable = true;
+
+            // Reset button background color
+            answerButtons[i].GetComponent<Image>().color = Color.white;
         }
 
         answered = false;
@@ -84,19 +84,34 @@ public class QuizManager : MonoBehaviour
 
         Question q = questions[currentQuestionIndex];
 
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            Image btnImage = answerButtons[i].GetComponent<Image>();
+
+            if (i == q.correctAnswerIndex)
+            {
+                btnImage.color = new Color32(80, 200, 120, 255); // ✅ Green
+            }
+            else if (i == index)
+            {
+                btnImage.color = new Color32(200, 80, 80, 255); // ❌ Red if wrong selection
+            }
+            else
+            {
+                btnImage.color = Color.white;
+            }
+
+            answerButtons[i].interactable = false;
+        }
+
         if (index == q.correctAnswerIndex)
         {
-            feedbackText.text = "Correct!";
             correctAnswers++;
+            StartCoroutine(BounceButton(answerButtons[index]));
         }
         else
         {
-            feedbackText.text = "Wrong!";
-        }
-
-        foreach (var button in answerButtons)
-        {
-            button.interactable = false;
+            StartCoroutine(ShakeButton(answerButtons[index]));
         }
     }
 
@@ -110,26 +125,71 @@ public class QuizManager : MonoBehaviour
 
     void ShowFinalResult()
     {
-        // Fill progress bar completely
         progressBar.value = 1f;
         progressText.text = "Quiz Complete!";
 
-        // Hide quiz UI
         questionPanel.SetActive(false);
         answerPanel.SetActive(false);
         nextButton.gameObject.SetActive(false);
         progressText.gameObject.SetActive(false);
         progressBar.gameObject.SetActive(false);
-        feedbackText.gameObject.SetActive(false);
 
-        // Show finish panel
         finishPanel.SetActive(true);
-        finishTitleText.text = "Quiz Complete!";
+        finishTitleText.text = "🎉 Quiz Complete!";
         finishScoreText.text = $"You got {correctAnswers} out of {questions.Length} correct.";
+
+        StartCoroutine(FadeInFinishPanel());
     }
 
     public void RestartQuiz()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    IEnumerator FadeInFinishPanel()
+    {
+        CanvasGroup cg = finishPanel.GetComponent<CanvasGroup>();
+        cg.alpha = 0f;
+        float t = 0f;
+        while (cg.alpha < 1f)
+        {
+            t += Time.deltaTime * 2f;
+            cg.alpha = Mathf.Clamp01(t);
+            yield return null;
+        }
+    }
+
+    IEnumerator BounceButton(Button button)
+    {
+        Vector3 original = button.transform.localScale;
+        Vector3 enlarged = original * 1.2f;
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 5f;
+            button.transform.localScale = Vector3.Lerp(original, enlarged, Mathf.Sin(t * Mathf.PI));
+            yield return null;
+        }
+
+        button.transform.localScale = original;
+    }
+
+    IEnumerator ShakeButton(Button button)
+    {
+        Vector3 original = button.transform.localPosition;
+        float elapsed = 0f;
+        float duration = 0.3f;
+        float strength = 10f;
+
+        while (elapsed < duration)
+        {
+            float x = Mathf.Sin(elapsed * 40f) * strength;
+            button.transform.localPosition = original + new Vector3(x, 0, 0);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        button.transform.localPosition = original;
     }
 }
