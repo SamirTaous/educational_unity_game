@@ -8,12 +8,14 @@ public class QuizManager : MonoBehaviour
     public Button[] answerButtons;
     public TMP_Text[] answerButtonTexts;
 
-    public TMP_Text feedbackText;        // ← Add this in Inspector
-    public TMP_Text resultText;          // ← Add this in Inspector
+    public TMP_Text feedbackText;        // Drag in Inspector
+    public TMP_Text resultText;          // Drag in Inspector
 
     private Question[] questions;
     private int currentQuestionIndex = 0;
     private int correctAnswers = 0;
+
+    private bool answered = false;       // New flag to control flow
 
     void Start()
     {
@@ -36,7 +38,7 @@ public class QuizManager : MonoBehaviour
 
     void DisplayCurrentQuestion()
     {
-        feedbackText.text = ""; // Clear feedback each time
+        feedbackText.text = ""; // Clear previous feedback
 
         if (questions == null || currentQuestionIndex >= questions.Length)
         {
@@ -50,17 +52,21 @@ public class QuizManager : MonoBehaviour
         for (int i = 0; i < answerButtons.Length; i++)
         {
             int index = i;
-
             answerButtonTexts[i].text = q.answers[i];
             answerButtons[i].onClick.RemoveAllListeners();
             answerButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
+            answerButtons[i].interactable = true;
         }
+
+        answered = false;
     }
 
     void OnAnswerSelected(int index)
     {
-        if (currentQuestionIndex >= questions.Length)
+        if (answered || currentQuestionIndex >= questions.Length)
             return;
+
+        answered = true;
 
         Question q = questions[currentQuestionIndex];
 
@@ -74,22 +80,15 @@ public class QuizManager : MonoBehaviour
             feedbackText.text = "❌ Wrong!";
         }
 
-        // Disable buttons to prevent spamming
         foreach (var button in answerButtons)
         {
             button.interactable = false;
         }
-
-        // Move to next question after short delay
-        Invoke(nameof(NextQuestion), 1.5f);
     }
 
-    void NextQuestion()
+    public void OnNextButtonPressed()
     {
-        foreach (var button in answerButtons)
-        {
-            button.interactable = true;
-        }
+        if (!answered) return;
 
         currentQuestionIndex++;
         DisplayCurrentQuestion();
@@ -101,6 +100,7 @@ public class QuizManager : MonoBehaviour
         resultText.text = $"You got {correctAnswers} out of {questions.Length} correct.";
 
         feedbackText.text = "";
+
         foreach (var button in answerButtons)
         {
             button.gameObject.SetActive(false);
