@@ -1,3 +1,4 @@
+// QuizManager.cs
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -19,6 +20,8 @@ public class QuizManager : MonoBehaviour
     public GameObject finishPanel;
     public TMP_Text finishTitleText;
     public TMP_Text finishScoreText;
+
+    public GameObject questionTitle;
 
     private Question[] questions;
     private int currentQuestionIndex = 0;
@@ -126,16 +129,17 @@ public class QuizManager : MonoBehaviour
     void ShowFinalResult()
     {
         progressBar.value = 1f;
-        progressText.text = "Quiz Complete!";
+        progressText.text = "Quiz Complete";
 
         questionPanel.SetActive(false);
         answerPanel.SetActive(false);
         nextButton.gameObject.SetActive(false);
         progressText.gameObject.SetActive(false);
         progressBar.gameObject.SetActive(false);
+        questionTitle.SetActive(false);
 
         finishPanel.SetActive(true);
-        finishTitleText.text = "🎉 Quiz Complete!";
+        finishTitleText.text = "Quiz Complete";
         finishScoreText.text = $"You got {correctAnswers} out of {questions.Length} correct.";
 
         StartCoroutine(FadeInFinishPanel());
