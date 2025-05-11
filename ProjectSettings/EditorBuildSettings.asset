@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/MainMenu.unity
+    guid: e16d513239eb73e40898cb1d5050e61f
+  - enabled: 1
+    path: Assets/Scenes/ClosedQuestionsScene.unity
+    guid: 2160799cc38ad5718b18f486bf386820
+  - enabled: 1
+    path: Assets/Scenes/OpenQuestionsScene.unity
+    guid: b6b37430585f8645cb500c39139f94fa
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 54002ee2f5e77c754b67e32e4ecbf152, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
