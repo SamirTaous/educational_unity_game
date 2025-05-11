@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "open_questions": 1,
+    "total_questions": 2,
+    "yes_no_questions": 1
+  },
+  "questions": [
+    {
+      "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
+      "reference_answer": "Le texte définit l'intelligence artificielle comme l'ensemble des théories et des techniques développant des programmes informatiques complexes capables de simuler certains traits de l'intelligence humaine.",
+      "type": "open"
+    },
+    {
+      "answer": "yes",
+      "justification": "Le texte indique que l'IA développe des programmes capables de 'simuler certains traits de l'intelligence humaine'.",
+      "question": "L'intelligence artificielle vise-t-elle à simuler certains traits de l'intelligence humaine ?",
+      "type": "yes_no"
+    }
+  ],
+  "status": "success"
+}
