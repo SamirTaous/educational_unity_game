@@ -1,20 +1,26 @@
-// OpenQuestionManager.cs
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using SimpleJSON;
 
 public class OpenQuestionManager : MonoBehaviour
 {
     public TMP_Text questionText;
     public TMP_Text progressText;
+    public TMP_Text passageText;         // scrollable text
     public Slider progressBar;
+
     public GameObject questionPanel;
+    public GameObject passagePanel;      // panel containing the scroll view + back button
     public TMP_InputField answerInputField;
     public Button nextButton;
+    public Button showTextButton;        // button to show the text from question screen
+    public Button backButton;            // button to go back from passage view
+
     public GameObject finishPanel;
     public TMP_Text finishTitleText;
     public TMP_Text finishSummaryText;
@@ -27,22 +33,49 @@ public class OpenQuestionManager : MonoBehaviour
 
     void Start()
     {
-        LoadQuestions();
-        DisplayCurrentQuestion();
+        passagePanel.SetActive(false);
+        finishPanel.SetActive(false);
+        StartCoroutine(LoadRandomTextAndQuestions());
+
+        backButton.onClick.AddListener(HidePassageAndResume);
     }
 
-    void LoadQuestions()
+    IEnumerator LoadRandomTextAndQuestions()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("openquestions");
-        if (jsonFile != null)
+        string url = "http://localhost:5000/api/random-text-open-questions";
+        using (UnityEngine.Networking.UnityWebRequest request = UnityEngine.Networking.UnityWebRequest.Get(url))
         {
-            FullQuestionData fullData = JsonUtility.FromJson<FullQuestionData>(WrapJson(jsonFile.text));
-            questions = System.Array.FindAll(fullData.questions, q => q.type == "open");
-            userAnswers = new string[questions.Length];
-        }
-        else
-        {
-            Debug.LogError("openquestions.json not found in Resources folder.");
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityEngine.Networking.UnityWebRequest.Result.Success)
+            {
+                string json = request.downloadHandler.text;
+                var root = JSON.Parse(json);
+
+                // Load passage text
+                string passage = root["text"]["text_content"];
+                if (passageText != null) passageText.text = passage;
+
+                // Load open questions
+                JSONArray qArray = root["questions"].AsArray;
+                questions = new OpenQuestion[qArray.Count];
+                userAnswers = new string[qArray.Count];
+
+                for (int i = 0; i < qArray.Count; i++)
+                {
+                    questions[i] = new OpenQuestion
+                    {
+                        question = qArray[i]["question"],
+                        type = qArray[i]["type"]
+                    };
+                }
+
+                DisplayCurrentQuestion();
+            }
+            else
+            {
+                Debug.LogError("Failed to load from API: " + request.error);
+            }
         }
     }
 
@@ -65,6 +98,9 @@ public class OpenQuestionManager : MonoBehaviour
 
         nextButton.onClick.RemoveAllListeners();
         nextButton.onClick.AddListener(OnNextButtonPressed);
+
+        showTextButton.onClick.RemoveAllListeners();
+        showTextButton.onClick.AddListener(ShowPassageView);
     }
 
     void OnNextButtonPressed()
@@ -84,6 +120,7 @@ public class OpenQuestionManager : MonoBehaviour
         questionTitle.SetActive(false);
         questionText.gameObject.SetActive(false);
         answerInputField.gameObject.SetActive(false);
+        showTextButton.gameObject.SetActive(false);
 
         finishPanel.SetActive(true);
         finishTitleText.text = "Thank you!";
@@ -100,6 +137,30 @@ public class OpenQuestionManager : MonoBehaviour
         restartButton.onClick.AddListener(RestartQuiz);
 
         StartCoroutine(FadeInFinishPanel());
+    }
+
+    void ShowPassageView()
+    {
+        questionPanel.SetActive(false);
+        questionTitle.SetActive(false);
+        nextButton.gameObject.SetActive(false);
+        progressBar.gameObject.SetActive(false);
+        progressText.gameObject.SetActive(false);
+        showTextButton.gameObject.SetActive(false);
+
+        passagePanel.SetActive(true);
+    }
+
+    void HidePassageAndResume()
+    {
+        passagePanel.SetActive(false);
+
+        questionPanel.SetActive(true);
+        questionTitle.SetActive(true);
+        nextButton.gameObject.SetActive(true);
+        progressBar.gameObject.SetActive(true);
+        progressText.gameObject.SetActive(true);
+        showTextButton.gameObject.SetActive(true);
     }
 
     void SaveAnswersToJsonFile()
@@ -157,25 +218,11 @@ public class OpenQuestionManager : MonoBehaviour
         }
     }
 
-    string WrapJson(string raw)
-    {
-        int start = raw.IndexOf("\"questions\":") + "\"questions\":".Length;
-        int end = raw.LastIndexOf("]") + 1;
-        string questionArray = raw.Substring(start, end - start);
-        return "{\"questions\":" + questionArray + "}";
-    }
-
     [System.Serializable]
     public class OpenQuestion
     {
         public string question;
         public string type;
-    }
-
-    [System.Serializable]
-    public class FullQuestionData
-    {
-        public OpenQuestion[] questions;
     }
 
     [System.Serializable]
