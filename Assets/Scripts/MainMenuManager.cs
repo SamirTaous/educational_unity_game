@@ -9,6 +9,11 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("OpenQuestionsScene");
     }
 
+    public void LoadReadingScene()
+    {
+        SceneManager.LoadScene("ReadingScene");
+    }
+
     public void LoadClosedQuestionsScene()
     {
         SceneManager.LoadScene("ClosedQuestionsScene");

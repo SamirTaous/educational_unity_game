@@ -1,10 +1,10 @@
-// ReadingSceneManager.cs
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.Networking;
 
 public class ReadingSceneManager : MonoBehaviour
 {
@@ -25,9 +25,16 @@ public class ReadingSceneManager : MonoBehaviour
     private int currentPlaybackSample = 0;
 
     [System.Serializable]
-    public class ReadingData
+    public class TextResponse
     {
-        public string passage;
+        public TextData text;
+    }
+
+    [System.Serializable]
+    public class TextData
+    {
+        public string _id;
+        public string text_content;
     }
 
     void Start()
@@ -48,26 +55,35 @@ public class ReadingSceneManager : MonoBehaviour
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
 
-        LoadReadingPassage();
+        StartCoroutine(LoadReadingPassage());
 
         startRecordingButton.onClick.AddListener(StartOrPauseRecording);
         stopRecordingButton.onClick.AddListener(StopRecording);
         playRecordingButton.onClick.AddListener(PlayOrPauseRecording);
     }
 
-    void LoadReadingPassage()
+    IEnumerator LoadReadingPassage()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("readingtext");
-        if (jsonFile != null)
+        string url = "http://localhost:5000/api/random-text-open-questions";
+
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
-            ReadingData data = JsonUtility.FromJson<ReadingData>(jsonFile.text);
-            passageText.text = data.passage;
-            UpdateWordCount(data.passage);
-        }
-        else
-        {
-            passageText.text = "[Reading text not found]";
-            Debug.LogError("readingtext.json not found in Resources folder.");
+            request.SetRequestHeader("Content-Type", "application/json");
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError("Failed to load text from API: " + request.error);
+                passageText.text = "[Failed to load reading text]";
+            }
+            else
+            {
+                string json = request.downloadHandler.text;
+                TextResponse response = JsonUtility.FromJson<TextResponse>(json);
+                string passage = response.text.text_content;
+                passageText.text = passage;
+                UpdateWordCount(passage);
+            }
         }
     }
 

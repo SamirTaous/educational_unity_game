@@ -51,6 +51,26 @@
         {
             "question": "Considering all the details of the text, what is the central mystery or unanswered question that the author presents, and what different interpretations might exist to explain it?",
             "answer": ""
+        },
+        {
+            "question": "According to the text, what are the key processes involved in the water cycle, and how do they contribute to the continuous movement of water?",
+            "answer": ""
+        },
+        {
+            "question": "How does the text explain the relationship between the water cycle and the formation of different weather patterns?",
+            "answer": ""
+        },
+        {
+            "question": "The text mentions the importance of understanding the water cycle. In what ways does understanding the water cycle help us protect water resources and address environmental challenges like droughts and floods?",
+            "answer": ""
+        },
+        {
+            "question": "Besides supporting life and shaping weather patterns, what other crucial role does the water cycle play, as stated in the provided text?",
+            "answer": ""
+        },
+        {
+            "question": "Based on the text, what happens to water after it falls as precipitation, and how does this contribute to the completion of the water cycle?",
+            "answer": ""
         }
     ]
 }
