@@ -111,14 +111,3 @@ Open Questions Scene
 * Implement different quiz categories and difficulty levels.
 * Add leaderboard and reward system.
 
-## Contributors
-
-* **Samir Taous** – Unity Developer, Backend Integration, UI Designer
-
-
-
----
-
-Let me know if you’d like this exported as a file or published directly into your project’s root.
-```
-
