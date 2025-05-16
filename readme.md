@@ -61,19 +61,19 @@ An educational mobile game built in Unity, designed to teach and test learners t
 
 Main Menu
 
-![[Pasted image 20250516144953.png]]
+![alt text](image.png)
 
 Reading Scene
 
-![[Pasted image 20250516144814.png]]
+![alt text](image-1.png)
 
 Closed Questions Scene
 
-![[Pasted image 20250516144819.png]]
+![alt text](image-2.png)
 
 Open Questions Scene
 
-![[Pasted image 20250516144922.png]]
+![alt text](image-3.png)
 
 ## Setup Instructions
 
