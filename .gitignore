@@ -1,4 +1,6 @@
+# ========================
 # Unity generated
+# ========================
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -31,3 +33,15 @@ sysinfo.txt
 
 # JetBrains Rider
 .idea/
+
+# ========================
+# Flask / Python backend
+# ========================
+venv/
+flask_backend/venv/
+__pycache__/
+*.py[cod]
+.env
+*.log
+instance/
+*.sqlite3
