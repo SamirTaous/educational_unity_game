@@ -1,4 +1,3 @@
-// QuizManager.cs
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,11 +16,14 @@ public class QuizManager : MonoBehaviour
     public GameObject questionPanel;
     public GameObject answerPanel;
     public Button nextButton;
+
     public GameObject finishPanel;
     public TMP_Text finishTitleText;
     public TMP_Text finishScoreText;
-
     public GameObject questionTitle;
+
+    public Button restartButton;
+    public Button backToMenuButton; // ✅ New
 
     private Question[] questions;
     private int currentQuestionIndex = 0;
@@ -71,7 +73,6 @@ public class QuizManager : MonoBehaviour
             answerButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
             answerButtons[i].interactable = true;
 
-            // Reset button background color
             answerButtons[i].GetComponent<Image>().color = Color.white;
         }
 
@@ -97,7 +98,7 @@ public class QuizManager : MonoBehaviour
             }
             else if (i == index)
             {
-                btnImage.color = new Color32(200, 80, 80, 255); // ❌ Red if wrong selection
+                btnImage.color = new Color32(200, 80, 80, 255); // ❌ Red
             }
             else
             {
@@ -142,12 +143,23 @@ public class QuizManager : MonoBehaviour
         finishTitleText.text = "Quiz Complete";
         finishScoreText.text = $"You got {correctAnswers} out of {questions.Length} correct.";
 
+        restartButton.onClick.RemoveAllListeners();
+        restartButton.onClick.AddListener(RestartQuiz);
+
+        backToMenuButton.onClick.RemoveAllListeners(); // ✅
+        backToMenuButton.onClick.AddListener(GoToMainMenu); // ✅
+
         StartCoroutine(FadeInFinishPanel());
     }
 
     public void RestartQuiz()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void GoToMainMenu() // ✅
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     IEnumerator FadeInFinishPanel()
@@ -195,5 +207,13 @@ public class QuizManager : MonoBehaviour
         }
 
         button.transform.localPosition = original;
+    }
+
+    [System.Serializable]
+    public class Question
+    {
+        public string question;
+        public string[] answers;
+        public int correctAnswerIndex;
     }
 }

@@ -5,14 +5,28 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class ReadingSceneManager : MonoBehaviour
 {
     public TMP_Text passageText;
     public TMP_Text wordCountText;
+
     public Button startRecordingButton;
     public Button stopRecordingButton;
     public Button playRecordingButton;
+    public Button saveRecordingButton;
+
+    public GameObject passagePanel;
+    public GameObject startRecordingButtonObject;
+    public GameObject stopRecordingButtonObject;
+    public GameObject playRecordingButtonObject;
+
+    public GameObject finishPanel;
+    public TMP_Text finishTitleText;
+    public TMP_Text finishScoreText;
+    public Button restartButton;
+    public Button backToMenuButton;
 
     private List<float> recordedSamples = new List<float>();
     private int sampleRate = 44100;
@@ -37,6 +51,14 @@ public class ReadingSceneManager : MonoBehaviour
         public string text_content;
     }
 
+    [System.Serializable]
+    public class RecordingData
+    {
+        public string id;
+        public string original_text;
+        public string audio_base64;
+    }
+
     void Start()
     {
         microphoneDevice = Microphone.devices.Length > 0 ? Microphone.devices[0] : null;
@@ -46,10 +68,12 @@ public class ReadingSceneManager : MonoBehaviour
             startRecordingButton.interactable = false;
             stopRecordingButton.interactable = false;
             playRecordingButton.interactable = false;
+            saveRecordingButton.interactable = false;
         }
 
         stopRecordingButton.interactable = false;
         playRecordingButton.interactable = false;
+        saveRecordingButton.interactable = true;
 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -60,6 +84,13 @@ public class ReadingSceneManager : MonoBehaviour
         startRecordingButton.onClick.AddListener(StartOrPauseRecording);
         stopRecordingButton.onClick.AddListener(StopRecording);
         playRecordingButton.onClick.AddListener(PlayOrPauseRecording);
+        saveRecordingButton.onClick.AddListener(SaveRecording);
+
+        restartButton.onClick.AddListener(RestartScene);
+        backToMenuButton.onClick.AddListener(GoToMainMenu);
+
+        if (finishPanel != null)
+            finishPanel.SetActive(false);
     }
 
     IEnumerator LoadReadingPassage()
@@ -170,5 +201,107 @@ public class ReadingSceneManager : MonoBehaviour
             isPlaying = true;
             playRecordingButton.GetComponentInChildren<TMP_Text>().text = "Pause";
         }
+    }
+
+    void SaveRecording()
+    {
+        if (recordedSamples.Count == 0 || string.IsNullOrEmpty(passageText.text))
+        {
+            Debug.LogWarning("No recording or passage text to save.");
+            return;
+        }
+
+        byte[] wavBytes = ConvertToWavBytes(recordedSamples.ToArray(), sampleRate);
+        string audioBase64 = System.Convert.ToBase64String(wavBytes);
+
+        RecordingData payload = new RecordingData
+        {
+            id = "student001",
+            original_text = passageText.text,
+            audio_base64 = audioBase64
+        };
+
+        string json = JsonUtility.ToJson(payload);
+        StartCoroutine(PostRecording(json));
+    }
+
+    byte[] ConvertToWavBytes(float[] samples, int frequency)
+    {
+        int headerSize = 44;
+        int sampleCount = samples.Length;
+        int byteCount = sampleCount * 2;
+
+        using (MemoryStream stream = new MemoryStream(headerSize + byteCount))
+        using (BinaryWriter writer = new BinaryWriter(stream))
+        {
+            writer.Write(System.Text.Encoding.ASCII.GetBytes("RIFF"));
+            writer.Write(headerSize + byteCount - 8);
+            writer.Write(System.Text.Encoding.ASCII.GetBytes("WAVE"));
+            writer.Write(System.Text.Encoding.ASCII.GetBytes("fmt "));
+            writer.Write(16);
+            writer.Write((short)1);
+            writer.Write((short)1);
+            writer.Write(frequency);
+            writer.Write(frequency * 2);
+            writer.Write((short)2);
+            writer.Write((short)16);
+
+            writer.Write(System.Text.Encoding.ASCII.GetBytes("data"));
+            writer.Write(byteCount);
+
+            foreach (float s in samples)
+            {
+                short val = (short)(Mathf.Clamp(s, -1f, 1f) * short.MaxValue);
+                writer.Write(val);
+            }
+
+            return stream.ToArray();
+        }
+    }
+
+    IEnumerator PostRecording(string jsonPayload)
+    {
+        string url = "http://localhost:5000/api/reading-recordings";
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Recording successfully saved to backend.");
+            ShowFinishPanel();
+        }
+        else
+        {
+            Debug.LogError("Error saving recording: " + request.error);
+        }
+    }
+
+    void ShowFinishPanel()
+    {
+        if (finishPanel != null) finishPanel.SetActive(true);
+        if (finishTitleText != null) finishTitleText.text = "Thank you!";
+        if (finishScoreText != null) finishScoreText.text = "Your recording has been saved.";
+
+        if (passagePanel != null) passagePanel.SetActive(false);
+        if (startRecordingButtonObject != null) startRecordingButtonObject.SetActive(false);
+        if (stopRecordingButtonObject != null) stopRecordingButtonObject.SetActive(false);
+        if (playRecordingButtonObject != null) playRecordingButtonObject.SetActive(false);
+        if (saveRecordingButton != null) saveRecordingButton.gameObject.SetActive(false);
+        if (wordCountText != null) wordCountText.gameObject.SetActive(false);
+    }
+
+    void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

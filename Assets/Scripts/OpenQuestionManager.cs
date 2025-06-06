@@ -11,21 +11,22 @@ public class OpenQuestionManager : MonoBehaviour
 {
     public TMP_Text questionText;
     public TMP_Text progressText;
-    public TMP_Text passageText;         // scrollable text
+    public TMP_Text passageText;
     public Slider progressBar;
 
     public GameObject questionPanel;
-    public GameObject passagePanel;      // panel containing the scroll view + back button
+    public GameObject passagePanel;
     public TMP_InputField answerInputField;
     public Button nextButton;
-    public Button showTextButton;        // button to show the text from question screen
-    public Button backButton;            // button to go back from passage view
+    public Button showTextButton;
+    public Button backButton;
 
     public GameObject finishPanel;
     public TMP_Text finishTitleText;
     public TMP_Text finishSummaryText;
     public GameObject questionTitle;
     public Button restartButton;
+    public Button backToMenuButton;
 
     private OpenQuestion[] questions;
     private int currentQuestionIndex = 0;
@@ -38,6 +39,8 @@ public class OpenQuestionManager : MonoBehaviour
         StartCoroutine(LoadRandomTextAndQuestions());
 
         backButton.onClick.AddListener(HidePassageAndResume);
+        restartButton.onClick.AddListener(RestartQuiz);
+        backToMenuButton.onClick.AddListener(GoToMainMenu);
     }
 
     IEnumerator LoadRandomTextAndQuestions()
@@ -52,11 +55,9 @@ public class OpenQuestionManager : MonoBehaviour
                 string json = request.downloadHandler.text;
                 var root = JSON.Parse(json);
 
-                // Load passage text
                 string passage = root["text"]["text_content"];
                 if (passageText != null) passageText.text = passage;
 
-                // Load open questions
                 JSONArray qArray = root["questions"].AsArray;
                 questions = new OpenQuestion[qArray.Count];
                 userAnswers = new string[qArray.Count];
@@ -124,18 +125,9 @@ public class OpenQuestionManager : MonoBehaviour
 
         finishPanel.SetActive(true);
         finishTitleText.text = "Thank you!";
-
-        finishSummaryText.text = "Your responses:\n\n";
-        for (int i = 0; i < questions.Length; i++)
-        {
-            finishSummaryText.text += $"→ {userAnswers[i]}\n\n";
-        }
+        finishSummaryText.text = "Your answers have been saved."; // ✅ No more answer list
 
         SaveAnswersToJsonFile();
-
-        restartButton.onClick.RemoveAllListeners();
-        restartButton.onClick.AddListener(RestartQuiz);
-
         StartCoroutine(FadeInFinishPanel());
     }
 
@@ -154,7 +146,6 @@ public class OpenQuestionManager : MonoBehaviour
     void HidePassageAndResume()
     {
         passagePanel.SetActive(false);
-
         questionPanel.SetActive(true);
         questionTitle.SetActive(true);
         nextButton.gameObject.SetActive(true);
@@ -170,6 +161,7 @@ public class OpenQuestionManager : MonoBehaviour
         {
             Directory.CreateDirectory(folderPath);
         }
+
         string path = Path.Combine(folderPath, "user_answers.json");
 
         List<AnswerRecord> allAnswers = new List<AnswerRecord>();
@@ -203,6 +195,11 @@ public class OpenQuestionManager : MonoBehaviour
     void RestartQuiz()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     IEnumerator FadeInFinishPanel()
