@@ -1,7 +1,7 @@
 
-# Unity Educational Quiz Game
+# Unity Educational Game
 
-An educational mobile game built in Unity, designed to teach and test learners through an engaging and interactive quiz experience. The game incorporates multiple animations, feedback mechanisms, and supports both multiple-choice and open-ended questions.
+An educational mobile game built in Unity, designed to teach and test learners through engaging and interactive quizzes, open questions and reading experiences. The game incorporates multiple animations, feedback mechanisms, and supports both multiple-choice and open-ended questions.
 
 ## Features
 
@@ -110,15 +110,4 @@ Open Questions Scene
 * Add user profiles and progress tracking.
 * Implement different quiz categories and difficulty levels.
 * Add leaderboard and reward system.
-
-## Contributors
-
-* **Samir Taous** – Unity Developer, Backend Integration, UI Designer
-
-
-
----
-
-Let me know if you’d like this exported as a file or published directly into your project’s root.
-```
 
