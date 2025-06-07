@@ -73,7 +73,7 @@ def get_closed_questions():
     ]
     return jsonify(output), 200
 
-# 🔹 Save user answers (optional, used to store open question results)
+# 🔹 Save user answers 
 @bp.route("/user-answers", methods=["POST"])
 def save_user_answers():
     data = request.get_json()
