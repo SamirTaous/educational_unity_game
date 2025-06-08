@@ -36,16 +36,16 @@ public class OpenQuestionManager : MonoBehaviour
     {
         passagePanel.SetActive(false);
         finishPanel.SetActive(false);
-        StartCoroutine(LoadRandomTextAndQuestions());
+        StartCoroutine(LoadQuestionsByIndex(SessionData.selectedTextIndex));
 
         backButton.onClick.AddListener(HidePassageAndResume);
         restartButton.onClick.AddListener(RestartQuiz);
         backToMenuButton.onClick.AddListener(GoToMainMenu);
     }
 
-    IEnumerator LoadRandomTextAndQuestions()
+    IEnumerator LoadQuestionsByIndex(int index)
     {
-        string url = "http://localhost:5000/api/random-text-open-questions";
+        string url = $"http://localhost:5000/api/text-by-index/{index}";
         using (UnityEngine.Networking.UnityWebRequest request = UnityEngine.Networking.UnityWebRequest.Get(url))
         {
             yield return request.SendWebRequest();
@@ -75,7 +75,7 @@ public class OpenQuestionManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Failed to load from API: " + request.error);
+                Debug.LogError("Failed to load questions by index: " + request.error);
             }
         }
     }
@@ -125,7 +125,7 @@ public class OpenQuestionManager : MonoBehaviour
 
         finishPanel.SetActive(true);
         finishTitleText.text = "Thank you!";
-        finishSummaryText.text = "Your answers have been saved."; // ✅ No more answer list
+        finishSummaryText.text = "Your answers have been saved.";
 
         SaveAnswersToJsonFile();
         StartCoroutine(FadeInFinishPanel());

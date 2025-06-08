@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SpaceMenuManager : MonoBehaviour
 {
-    public void LoadStudentSpace()
+    public void LoadLoginScreen()
     {
         SceneManager.LoadScene("LoginScreen");
     }

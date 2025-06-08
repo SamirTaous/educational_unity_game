@@ -1,21 +1,63 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
+using UnityEngine.Networking;
+using SimpleJSON;
+using System.Collections.Generic;
 
 public class MainMenuManager : MonoBehaviour
 {
     public TMP_Text userIdText;
+    public TMP_Dropdown textDropdown;
+
+    private List<string> textIds = new List<string>();  // Optional: store MongoDB text IDs if needed
 
     void Start()
     {
         if (!string.IsNullOrEmpty(SessionData.user_id))
-        {
             userIdText.text = "User ID: " + SessionData.user_id;
+        else
+            userIdText.text = "Not logged in.";
+
+        StartCoroutine(PopulateTextDropdown());
+    }
+
+    IEnumerator PopulateTextDropdown()
+    {
+        string url = "http://localhost:5000/api/all";
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string json = request.downloadHandler.text;
+            var allTexts = JSON.Parse(json);
+
+            textDropdown.ClearOptions();
+            List<string> options = new List<string>();
+
+            for (int i = 0; i < allTexts.Count; i++)
+            {
+                var item = allTexts[i];
+                string label = $"Text {i} ({item["questions"].Count} questions)";
+                options.Add(label);
+                textIds.Add(item["id"]);  // Optional
+            }
+
+            textDropdown.AddOptions(options);
+            textDropdown.onValueChanged.AddListener(OnDropdownChanged);
         }
         else
         {
-            userIdText.text = "Not logged in.";
+            Debug.LogError("Failed to load texts for dropdown: " + request.error);
         }
+    }
+
+    void OnDropdownChanged(int index)
+    {
+        SessionData.selectedTextIndex = index;
+        Debug.Log("Selected text index: " + index);
     }
 
     public void LoadOpenQuestionsScene()

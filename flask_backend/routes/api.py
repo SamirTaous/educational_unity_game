@@ -59,6 +59,31 @@ def get_random_text_with_open_questions():
         "questions": formatted_questions
     }), 200
 
+@bp.route("/text-by-index/<int:index>", methods=["GET"])
+def get_text_by_index(index):
+    texts = list(db.texts.find())
+    if index < 0 or index >= len(texts):
+        return jsonify({"error": "Index out of range"}), 404
+
+    text_doc = texts[index]
+    text_id = text_doc["_id"]
+    text_content = text_doc.get("text_content", "")
+
+    questions_cursor = db.questions.find({"text_id": text_id})
+    questions = [{
+        "question": q.get("question"),
+        "reference_answer": q.get("reference_answer"),
+        "type": q.get("type")
+    } for q in questions_cursor]
+
+    return jsonify({
+        "text": {
+            "id": str(text_id),
+            "text_content": text_content
+        },
+        "questions": questions
+    }), 200
+
 # 🔹 Get all closed (multiple-choice) questions
 @bp.route("/closed-questions", methods=["GET"])
 def get_closed_questions():

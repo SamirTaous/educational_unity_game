@@ -39,7 +39,7 @@ public class ReadingSceneManager : MonoBehaviour
     private int currentPlaybackSample = 0;
 
     [System.Serializable]
-    public class TextResponse
+    public class TextWrapper
     {
         public TextData text;
     }
@@ -47,7 +47,7 @@ public class ReadingSceneManager : MonoBehaviour
     [System.Serializable]
     public class TextData
     {
-        public string _id;
+        public string id;
         public string text_content;
     }
 
@@ -79,7 +79,7 @@ public class ReadingSceneManager : MonoBehaviour
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
 
-        StartCoroutine(LoadReadingPassage());
+        StartCoroutine(LoadReadingPassageByIndex(SessionData.selectedTextIndex));
 
         startRecordingButton.onClick.AddListener(StartOrPauseRecording);
         stopRecordingButton.onClick.AddListener(StopRecording);
@@ -93,9 +93,9 @@ public class ReadingSceneManager : MonoBehaviour
             finishPanel.SetActive(false);
     }
 
-    IEnumerator LoadReadingPassage()
+    IEnumerator LoadReadingPassageByIndex(int index)
     {
-        string url = "http://localhost:5000/api/random-text-open-questions";
+        string url = $"http://localhost:5000/api/text-by-index/{index}";
 
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
@@ -105,21 +105,29 @@ public class ReadingSceneManager : MonoBehaviour
             if (request.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError("Failed to load text from API: " + request.error);
-                passageText.text = "[Failed to load reading text]";
+                if (passageText != null) passageText.text = "[Failed to load reading text]";
             }
             else
             {
                 string json = request.downloadHandler.text;
-                TextResponse response = JsonUtility.FromJson<TextResponse>(json);
-                string passage = response.text.text_content;
-                passageText.text = passage;
-                UpdateWordCount(passage);
+                TextWrapper wrapper = JsonUtility.FromJson<TextWrapper>(json);
+                if (wrapper != null && wrapper.text != null && !string.IsNullOrEmpty(wrapper.text.text_content))
+                {
+                    string passage = wrapper.text.text_content;
+                    if (passageText != null) passageText.text = passage;
+                    if (wordCountText != null) UpdateWordCount(passage);
+                }
+                else
+                {
+                    Debug.LogError("Parsed response is null or missing text_content.");
+                }
             }
         }
     }
 
     void UpdateWordCount(string text)
     {
+        if (wordCountText == null || string.IsNullOrEmpty(text)) return;
         int count = text.Split(new[] { ' ', '\n' }, System.StringSplitOptions.RemoveEmptyEntries).Length;
         wordCountText.text = count + " Words";
     }
@@ -205,7 +213,7 @@ public class ReadingSceneManager : MonoBehaviour
 
     void SaveRecording()
     {
-        if (recordedSamples.Count == 0 || string.IsNullOrEmpty(passageText.text))
+        if (recordedSamples.Count == 0 || passageText == null || string.IsNullOrEmpty(passageText.text))
         {
             Debug.LogWarning("No recording or passage text to save.");
             return;
@@ -216,7 +224,7 @@ public class ReadingSceneManager : MonoBehaviour
 
         RecordingData payload = new RecordingData
         {
-            id = "student001",
+            id = SessionData.user_id,
             original_text = passageText.text,
             audio_base64 = audioBase64
         };

@@ -135,6 +135,18 @@
         {
             "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
             "answer": "sdfds"
+        },
+        {
+            "question": "Comment le processus de la photosynthèse transforme-t-il le dioxyde de carbone et l'eau, et quel est le produit final de cette transformation?",
+            "answer": ""
+        },
+        {
+            "question": "Outre la production de glucose, quel autre produit essentiel est libéré lors de la photosynthèse, et pourquoi est-il important?",
+            "answer": ""
+        },
+        {
+            "question": "Selon le texte, pourquoi la photosynthèse est-elle considérée comme indispensable à la vie sur Terre?",
+            "answer": ""
         }
     ]
 }

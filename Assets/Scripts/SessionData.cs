@@ -4,4 +4,5 @@ public static class SessionData
     public static string username;
     public static string role;
     public static string level;
+    public static int selectedTextIndex;
 }
