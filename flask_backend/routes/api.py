@@ -5,6 +5,24 @@ import random
 
 bp = Blueprint("api", __name__, url_prefix="/api")
 
+
+# 🔹 Get all students 
+@bp.route("/students", methods=["GET"])
+def get_all_students():
+    students_cursor = db.students.find({}, {"_id": 0, "password_hash": 0})
+    students = list(students_cursor)
+    return jsonify(students), 200
+
+# 🔹 Get a student by index
+@bp.route("/student-by-index/<int:index>", methods=["GET"])
+def get_student_by_index(index):
+    students = list(db.students.find({}, {"_id": 0, "password_hash": 0}))
+    
+    if index < 0 or index >= len(students):
+        return jsonify({"error": "Index out of range"}), 404
+
+    return jsonify(students[index]), 200
+
 # 🔹 Get all texts with their open questions
 @bp.route("/all", methods=["GET"])
 def get_all_question_sets():
