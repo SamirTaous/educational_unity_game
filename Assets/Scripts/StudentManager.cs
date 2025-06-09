@@ -15,9 +15,10 @@ public class StudentManager : MonoBehaviour
     [Header("UI")]
     public TMP_InputField searchInputField;
 
-    // Store all students and active items
     private List<Student> allStudents = new();
     private List<GameObject> currentItems = new();
+
+    public StudentDetailPanel detailPanel;
 
     [System.Serializable]
     public class Student
@@ -29,10 +30,8 @@ public class StudentManager : MonoBehaviour
 
     void Start()
     {
-        // Start loading from backend
         StartCoroutine(FetchStudents());
 
-        // Add listener to input field
         if (searchInputField != null)
         {
             searchInputField.onValueChanged.AddListener(ShowFilteredList);
@@ -51,8 +50,6 @@ public class StudentManager : MonoBehaviour
         }
 
         string json = req.downloadHandler.text;
-        Debug.Log("Raw JSON:\n" + json);
-
         JSONNode studentArray = JSON.Parse(json);
         allStudents.Clear();
 
@@ -67,17 +64,15 @@ public class StudentManager : MonoBehaviour
             allStudents.Add(s);
         }
 
-        ShowFilteredList(""); // show all initially
+        ShowFilteredList("");
     }
 
     public void ShowFilteredList(string filter)
     {
-        // Clear existing items
         foreach (GameObject go in currentItems)
             Destroy(go);
         currentItems.Clear();
 
-        // Filter and rebuild list
         var filtered = allStudents
             .Where(s => s.username.ToLower().Contains(filter.ToLower()))
             .ToList();
@@ -92,7 +87,14 @@ public class StudentManager : MonoBehaviour
 
     void OnStudentClicked(string username)
     {
-        Debug.Log("Clicked: " + username);
-        // Future: open student detail panel here
+        var student = allStudents.FirstOrDefault(s => s.username == username);
+        if (student != null)
+            detailPanel.Show(student.username, student.level);
+    }
+
+    // Allow other scripts to trigger reload
+    public void RefreshList()
+    {
+        StartCoroutine(FetchStudents());
     }
 }

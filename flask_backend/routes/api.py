@@ -23,6 +23,39 @@ def get_student_by_index(index):
 
     return jsonify(students[index]), 200
 
+
+# 🔹 Update Student Level 
+@bp.route("/students/update-level", methods=["POST"])
+def update_student_level():
+    data = request.get_json()
+    username = data.get("username")
+    new_level = data.get("level")
+
+    if not username or not new_level:
+        return jsonify({"error": "Missing data"}), 400
+
+    result = db.students.update_one(
+        {"username": username},
+        {"$set": {"level": new_level}}
+    )
+
+    if result.matched_count == 0:
+        return jsonify({"error": "Student not found"}), 404
+
+    return jsonify({"message": "Level updated"}), 200
+
+
+# 🔹 Delete Student
+@bp.route("/students/delete/<string:username>", methods=["DELETE"])
+def delete_student(username):
+    result = db.students.delete_one({"username": username})
+    
+    if result.deleted_count == 0:
+        return jsonify({"error": "Student not found"}), 404
+
+    return jsonify({"message": "Student deleted"}), 200
+
+
 # 🔹 Get all texts with their open questions
 @bp.route("/all", methods=["GET"])
 def get_all_question_sets():

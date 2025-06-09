@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ReadingScene.unity
     guid: d61efdfe4c5c8418081b0a906b7d0e84
+  - enabled: 1
+    path: Assets/Scenes/TeacherMenu.unity
+    guid: cf2f108fe32b9e3babce55c79c3ac2af
+  - enabled: 1
+    path: Assets/Scenes/StudentsList.unity
+    guid: b743a3eb7fa14a713a30aef216fa3c1e
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 54002ee2f5e77c754b67e32e4ecbf152, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

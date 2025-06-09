@@ -73,10 +73,22 @@ public class LoginManager : MonoBehaviour
                 SessionData.role = res.role;
                 SessionData.level = res.level;
 
-                Debug.Log("✅ Login successful. User ID: " + SessionData.user_id);
-                Debug.Log("✅ Role: " + SessionData.role);
+                Debug.Log("Login successful. User ID: " + SessionData.user_id);
+                Debug.Log("Role: " + SessionData.role);
 
-                SceneManager.LoadScene("MainMenu");
+                // Redirect based on role
+                if (SessionData.role == "student")
+                {
+                    SceneManager.LoadScene("MainMenu");
+                }
+                else if (SessionData.role == "teacher")
+                {
+                    SceneManager.LoadScene("TeacherMenu");
+                }
+                else
+                {
+                    ShowError("Unknown role: " + SessionData.role);
+                }
             }
         }
     }
