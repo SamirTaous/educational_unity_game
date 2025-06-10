@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 100cedc694c2098bb93f3179c9002c40
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -365409896341572279
+    second: openquestionsicon_0
+  - first:
+      213: 8931802382199708666
+    second: openquestionsicon_1
+  - first:
+      213: 5421375564951259040
+    second: openquestionsicon_2
+  - first:
+      213: 4313695688935073379
+    second: openquestionsicon_3
+  - first:
+      213: 285157393218223648
+    second: openquestionsicon_4
+  - first:
+      213: 2624533977419178787
+    second: openquestionsicon_5
+  - first:
+      213: -8786413778943217765
+    second: openquestionsicon_6
+  - first:
+      213: -4509057549010800333
+    second: openquestionsicon_7
+  - first:
+      213: 4474472689868244416
+    second: openquestionsicon_8
+  - first:
+      213: 4632210991922456767
+    second: openquestionsicon_9
+  - first:
+      213: -3392261271598988978
+    second: openquestionsicon_10
+  - first:
+      213: 2204650860871221682
+    second: openquestionsicon_11
+  - first:
+      213: 1832099621590013076
+    second: openquestionsicon_12
+  - first:
+      213: 2093521518529885824
+    second: openquestionsicon_13
+  - first:
+      213: 4820257528381258277
+    second: openquestionsicon_14
+  - first:
+      213: -7934197850138934465
+    second: openquestionsicon_15
+  - first:
+      213: -4163905124451213895
+    second: openquestionsicon_16
+  - first:
+      213: -8831309750993174116
+    second: openquestionsicon_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: openquestionsicon_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 103
+        width: 215
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 945f523a2adcdeaf0800000000000000
+      internalID: -365409896341572279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_1
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 295
+        width: 54
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afb5003a1f224fb70800000000000000
+      internalID: 8931802382199708666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_2
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 12
+        width: 401
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a707e64a589c3b40800000000000000
+      internalID: 5421375564951259040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_3
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 354
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 366eb18cf535ddb30800000000000000
+      internalID: 4313695688935073379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_4
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 312
+        width: 46
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02e39d7632515f300800000000000000
+      internalID: 285157393218223648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_5
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 324
+        width: 15
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32363014fb73c6420800000000000000
+      internalID: 2624533977419178787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_6
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 321
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9fed707833601680800000000000000
+      internalID: -8786413778943217765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_7
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 321
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 331fa679c0c9c61c0800000000000000
+      internalID: -4509057549010800333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_8
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 295
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c588c46435881e30800000000000000
+      internalID: 4474472689868244416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_9
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 300
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb8a23aca5be84040800000000000000
+      internalID: 4632210991922456767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_10
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 282
+        width: 42
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e410701b8544ce0d0800000000000000
+      internalID: -3392261271598988978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_11
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 312
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b10df7f64e789e10800000000000000
+      internalID: 2204650860871221682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_12
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 295
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 494100226ecec6910800000000000000
+      internalID: 1832099621590013076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_13
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 268
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0863c99aabead0d10800000000000000
+      internalID: 2093521518529885824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_14
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 270
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52a3119eeaef4e240800000000000000
+      internalID: 4820257528381258277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_15
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 12
+        width: 140
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f330dcca71114e190800000000000000
+      internalID: -7934197850138934465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_16
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 12
+        width: 61
+        height: 208
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bd18a2c956d636c0800000000000000
+      internalID: -4163905124451213895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: openquestionsicon_17
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 11
+        width: 76
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c91cb9e5292e07580800000000000000
+      internalID: -8831309750993174116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      openquestionsicon_0: -365409896341572279
+      openquestionsicon_1: 8931802382199708666
+      openquestionsicon_10: -3392261271598988978
+      openquestionsicon_11: 2204650860871221682
+      openquestionsicon_12: 1832099621590013076
+      openquestionsicon_13: 2093521518529885824
+      openquestionsicon_14: 4820257528381258277
+      openquestionsicon_15: -7934197850138934465
+      openquestionsicon_16: -4163905124451213895
+      openquestionsicon_17: -8831309750993174116
+      openquestionsicon_2: 5421375564951259040
+      openquestionsicon_3: 4313695688935073379
+      openquestionsicon_4: 285157393218223648
+      openquestionsicon_5: 2624533977419178787
+      openquestionsicon_6: -8786413778943217765
+      openquestionsicon_7: -4509057549010800333
+      openquestionsicon_8: 4474472689868244416
+      openquestionsicon_9: 4632210991922456767
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
