@@ -11,7 +11,10 @@ public class MainMenuManager : MonoBehaviour
     public TMP_Text userIdText;
     public TMP_Dropdown textDropdown;
 
-    private List<string> textIds = new List<string>();  // Optional: store MongoDB text IDs if needed
+    private List<string> textIds = new List<string>(); 
+
+    public TMP_Text welcomeText;     
+    public TMP_Text badgeText;        
 
     void Start()
     {
@@ -19,6 +22,12 @@ public class MainMenuManager : MonoBehaviour
             userIdText.text = "User ID: " + SessionData.user_id;
         else
             userIdText.text = "Not logged in.";
+
+        if (!string.IsNullOrEmpty(SessionData.username))
+        {
+            welcomeText.text = $"Hi {SessionData.username}";
+            badgeText.text = SessionData.username.Substring(0, 1).ToUpper();
+        }   
 
         StartCoroutine(PopulateTextDropdown());
     }
