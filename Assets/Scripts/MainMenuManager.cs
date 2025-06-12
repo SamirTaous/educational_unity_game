@@ -25,7 +25,7 @@ public class MainMenuManager : MonoBehaviour
 
         if (!string.IsNullOrEmpty(SessionData.username))
         {
-            welcomeText.text = $"Hi {SessionData.username}";
+            welcomeText.text = $"مرحبا بك في اللعبة العربية";
             badgeText.text = SessionData.username.Substring(0, 1).ToUpper();
         }   
 
