@@ -53,9 +53,4 @@ public class InputArabicFixTMP : MonoBehaviour
         }
     }
 
-    public void PrintFinalArabicInput()
-    {
-        string finalFixedText = ArabicFixer.Fix(inputField.text);
-        Debug.Log("✅ Final Arabic Input (shaped): " + finalFixedText);
-    }
 }

@@ -1,0 +1,3 @@
+/home/samirtaous/UnityProjects/educational game/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/home/samirtaous/UnityProjects/educational game/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/src/main/cpp/FramePacing/CMakeLists.txt
+/home/samirtaous/UnityProjects/educational game/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt

@@ -1,0 +1,1 @@
+/home/samirtaous/UnityProjects/educational game/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/build/intermediates/cxx/Debug/2z3u6nhm/obj/armeabi-v7a
