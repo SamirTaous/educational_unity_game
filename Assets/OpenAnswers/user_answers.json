@@ -2,191 +2,405 @@
     "answers": [
         {
             "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
-            "answer": "reponse a"
+            "answer": "reponse a",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
-            "answer": "reponse b"
+            "answer": "reponse b",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
-            "answer": "reponse c"
+            "answer": "reponse c",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
-            "answer": "reponse d"
+            "answer": "reponse d",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
-            "answer": "reponse e"
+            "answer": "reponse e",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
-            "answer": "reponse f"
+            "answer": "reponse f",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
-            "answer": "fdsfsfdsfdsfd"
+            "answer": "fdsfsfdsfdsfd",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le texte définit-il l'intelligence artificielle (IA) en termes de théories, de techniques et de programmes informatiques ?",
-            "answer": "fsdgdgsdgd"
+            "answer": "fsdgdgsdgd",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "What feelings or atmosphere does the description of the wind carrying the scent of salt and old paper evoke, and what could this suggest about the place?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Considering the rusted key hanging near the lighthouse, and the phrase 'door long forgotten,' what kind of narrative or backstory might be hinted at?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Given the detail about the bare and uneven footprints in the sand, what could be inferred about the person who made them, and why are they significant when no one has walked the path in weeks?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "What effect does the detail of the bell ringing three times, even though its source has never been found, have on the overall mood and what could it symbolize?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Considering all the details of the text, what is the central mystery or unanswered question that the author presents, and what different interpretations might exist to explain it?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "According to the text, what are the key processes involved in the water cycle, and how do they contribute to the continuous movement of water?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "How does the text explain the relationship between the water cycle and the formation of different weather patterns?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "The text mentions the importance of understanding the water cycle. In what ways does understanding the water cycle help us protect water resources and address environmental challenges like droughts and floods?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Besides supporting life and shaping weather patterns, what other crucial role does the water cycle play, as stated in the provided text?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Based on the text, what happens to water after it falls as precipitation, and how does this contribute to the completion of the water cycle?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "D'après le texte, comment le soleil influence-t-il le cycle de l'eau, et quel est le résultat de cette influence?",
-            "answer": "teytdfxh"
+            "answer": "teytdfxh",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte indique que le cycle de l'eau est essentiel pour la vie et le climat. Comment pourrait-on déduire, à partir du texte, pourquoi il est si important?",
-            "answer": "fdgchhvg"
+            "answer": "fdgchhvg",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit les différentes étapes du cycle de l'eau. Pour quelles raisons l'eau qui s'infiltre dans le sol est-elle mentionnée dans le texte ?",
-            "answer": "uygkgy"
+            "answer": "uygkgy",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le processus de la photosynthèse transforme-t-il le dioxyde de carbone et l'eau, et quel est le produit final de cette transformation?",
-            "answer": "Le processus de la photosynthèse transforme le dioxyde de carbone"
+            "answer": "Le processus de la photosynthèse transforme le dioxyde de carbone",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Outre la production de glucose, quel autre produit essentiel est libéré lors de la photosynthèse, et pourquoi est-il important?",
-            "answer": "00"
+            "answer": "00",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Selon le texte, pourquoi la photosynthèse est-elle considérée comme indispensable à la vie sur Terre?",
-            "answer": "11"
+            "answer": "11",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "D'après le texte, comment la chaleur du soleil influence-t-elle le cycle de l'eau?",
-            "answer": "sdgfdg"
+            "answer": "sdgfdg",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit deux formes sous lesquelles l'eau retombe des nuages. Quelles sont-elles?",
-            "answer": "sagfsfg"
+            "answer": "sagfsfg",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Selon le texte, après être retombée sur terre, où va l'eau de pluie ou de neige?",
-            "answer": "agdfsgd"
+            "answer": "agdfsgd",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Expliquez avec vos propres mots, en vous basant sur le texte, ce qu'est la condensation et quel est son rôle dans le cycle de l'eau.",
-            "answer": "fgdsfgd"
+            "answer": "fgdsfgd",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
-            "answer": "fdgdsfg"
+            "answer": "fdgdsfg",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "D'après le texte, comment la chaleur du soleil influence-t-elle le cycle de l'eau?",
-            "answer": "dsfs"
+            "answer": "dsfs",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit deux formes sous lesquelles l'eau retombe des nuages. Quelles sont-elles?",
-            "answer": "sdfs"
+            "answer": "sdfs",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Selon le texte, après être retombée sur terre, où va l'eau de pluie ou de neige?",
-            "answer": "dsfs"
+            "answer": "dsfs",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Expliquez avec vos propres mots, en vous basant sur le texte, ce qu'est la condensation et quel est son rôle dans le cycle de l'eau.",
-            "answer": "dfds"
+            "answer": "dfds",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
-            "answer": "sdfds"
+            "answer": "sdfds",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Comment le processus de la photosynthèse transforme-t-il le dioxyde de carbone et l'eau, et quel est le produit final de cette transformation?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Outre la production de glucose, quel autre produit essentiel est libéré lors de la photosynthèse, et pourquoi est-il important?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Selon le texte, pourquoi la photosynthèse est-elle considérée comme indispensable à la vie sur Terre?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "D'après le texte, comment la chaleur du soleil influence-t-elle le cycle de l'eau?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit deux formes sous lesquelles l'eau retombe des nuages. Quelles sont-elles?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Selon le texte, après être retombée sur terre, où va l'eau de pluie ou de neige?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Expliquez avec vos propres mots, en vous basant sur le texte, ce qu'est la condensation et quel est son rôle dans le cycle de l'eau.",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "D'après le texte, comment la chaleur du soleil influence-t-elle le cycle de l'eau?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit deux formes sous lesquelles l'eau retombe des nuages. Quelles sont-elles?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Selon le texte, après être retombée sur terre, où va l'eau de pluie ou de neige?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Expliquez avec vos propres mots, en vous basant sur le texte, ce qu'est la condensation et quel est son rôle dans le cycle de l'eau.",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
         },
         {
             "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
-            "answer": ""
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "D'après le texte, comment la chaleur du soleil influence-t-elle le cycle de l'eau?",
+            "answer": "dsfdgfsdg",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Le texte décrit deux formes sous lesquelles l'eau retombe des nuages. Quelles sont-elles?",
+            "answer": "fsgsdfgdg",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Selon le texte, après être retombée sur terre, où va l'eau de pluie ou de neige?",
+            "answer": "fdgs",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Expliquez avec vos propres mots, en vous basant sur le texte, ce qu'est la condensation et quel est son rôle dans le cycle de l'eau.",
+            "answer": "fdgsd",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
+            "answer": "sgfsfgds",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "D'après le texte, comment la chaleur du soleil influence-t-elle le cycle de l'eau?",
+            "answer": "La chaleur du soleil fait s’évaporer l’eau des océans, des rivières et des lacs.",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Le texte décrit deux formes sous lesquelles l'eau retombe des nuages. Quelles sont-elles?",
+            "answer": "L’eau retombe sous forme de pluie ou de neige.",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Selon le texte, après être retombée sur terre, où va l'eau de pluie ou de neige?",
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Expliquez avec vos propres mots, en vous basant sur le texte, ce qu'est la condensation et quel est son rôle dans le cycle de l'eau.",
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
+            "answer": "",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "D'après le texte, comment la chaleur du soleil influence-t-elle le cycle de l'eau?",
+            "answer": "La chaleur du soleil fait s’évaporer l’eau des océans, des rivières et des lacs.",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Le texte décrit deux formes sous lesquelles l'eau retombe des nuages. Quelles sont-elles?",
+            "answer": "L’eau retombe sous forme de pluie ou de neige.",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Selon le texte, après être retombée sur terre, où va l'eau de pluie ou de neige?",
+            "answer": "Elle va dans les sols, les nappes souterraines et les cours d’eau.",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Expliquez avec vos propres mots, en vous basant sur le texte, ce qu'est la condensation et quel est son rôle dans le cycle de l'eau.",
+            "answer": "La condensation, c’est quand la vapeur d’eau devient des nuages. Elle aide l’eau à retomber sur la Terre.",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
+            "answer": "L’eau retourne toujours dans les cours d’eau et recommence le cycle encore et encore.",
+            "score": 0.0,
+            "feedback": ""
+        },
+        {
+            "question": "D'après le texte, comment la chaleur du soleil influence-t-elle le cycle de l'eau?",
+            "answer": "La chaleur du soleil fait s’évaporer l’eau des océans, des rivières et des lacs.",
+            "score": 4.0,
+            "feedback": "Bonne réponse, mais tu peux développer en expliquant comment cette évaporation contribue à la formation des nuages et des précipitations."
+        },
+        {
+            "question": "Le texte décrit deux formes sous lesquelles l'eau retombe des nuages. Quelles sont-elles?",
+            "answer": "L’eau retombe sous forme de pluie ou de neige.",
+            "score": 4.0,
+            "feedback": "Bonne réponse, mais pour un niveau C1, on attendait une réponse plus nuancée, mentionnant par exemple la grêle ou la bruine."
+        },
+        {
+            "question": "Selon le texte, après être retombée sur terre, où va l'eau de pluie ou de neige?",
+            "answer": "Elle va dans les sols, les nappes souterraines et les cours d’eau.",
+            "score": 4.0,
+            "feedback": "Bonne réponse, mais tu pourrais ajouter l'évaporation et le ruissellement."
+        },
+        {
+            "question": "Expliquez avec vos propres mots, en vous basant sur le texte, ce qu'est la condensation et quel est son rôle dans le cycle de l'eau.",
+            "answer": "La condensation, c’est quand la vapeur d’eau devient des nuages. Elle aide l’eau à retomber sur la Terre.",
+            "score": 3.0,
+            "feedback": "Bonne tentative, mais la condensation est plus complexe que la simple formation des nuages.  Il faut préciser le changement d'état de l'eau (gazeux à liquide) et son rôle dans les précipitations."
+        },
+        {
+            "question": "Le texte décrit le cycle de l'eau comme un mouvement continu. Comment le texte justifie-t-il ce caractère continu?",
+            "answer": "L’eau retourne toujours dans les cours d’eau et recommence le cycle encore et encore.",
+            "score": 4.0,
+            "feedback": "Bonne réponse, mais tu peux développer en citant des exemples précis du texte qui montrent ce mouvement continu (évaporation, condensation, précipitations...)."
         }
     ]
 }

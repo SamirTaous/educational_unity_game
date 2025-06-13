@@ -168,3 +168,77 @@ def save_reading_recording():
 
     db.reading_recordings.insert_one(data)
     return jsonify({"message": "Recording saved"}), 201
+
+# 🔹 Save open question answers (structured by student + text)
+@bp.route("/open-question-answers", methods=["POST"])
+def save_open_question_answers():
+    data = request.get_json()
+
+    student_id = data.get("student_id")
+    text_id = data.get("text_id")
+    answers = data.get("answers")
+    final_score = data.get("final_score")
+
+    if not student_id or not text_id or not isinstance(answers, list):
+        return jsonify({"error": "Missing or invalid data"}), 400
+
+    doc = {
+        "student_id": student_id,
+        "text_id": text_id,
+        "answers": answers,
+        "final_score": final_score
+    }
+
+    db.open_answers.insert_one(doc)
+    return jsonify({"message": "Open question answers saved"}), 201
+
+# 🔹 Get all unreviewed open question answers
+@bp.route("/open-question-answers", methods=["GET"])
+def get_open_question_answers():
+    results = []
+    cursor = db.open_answers.find()
+
+    for doc in cursor:
+        results.append({
+            "_id": str(doc["_id"]),
+            "student_id": doc.get("student_id"),
+            "text_id": doc.get("text_id"),
+            "final_score": doc.get("final_score"),
+            "answers": doc.get("answers", [])
+        })
+
+    return jsonify(results), 200
+
+# 🔹 Get unreviewed open question answers by student id
+@bp.route("/open-question-answers/<string:student_id>", methods=["GET"])
+def get_open_answers_by_student(student_id):
+    cursor = db.open_answers.find({"student_id": student_id})
+
+    results = []
+    for doc in cursor:
+        results.append({
+            "_id": str(doc["_id"]),
+            "student_id": doc.get("student_id"),
+            "text_id": doc.get("text_id"),
+            "final_score": doc.get("final_score"),
+            "answers": doc.get("answers", [])
+        })
+
+    return jsonify(results), 200
+
+# 🔹 Get unreviewed open question answers by text id
+@bp.route("/open-question-answers/<string:text_id>", methods=["GET"])
+def get_open_answers_by_text(text_id):
+    cursor = db.open_answers.find({"text_id": text_id})
+
+    results = []
+    for doc in cursor:
+        results.append({
+            "_id": str(doc["_id"]),
+            "student_id": doc.get("student_id"),
+            "text_id": doc.get("text_id"),
+            "final_score": doc.get("final_score"),
+            "answers": doc.get("answers", [])
+        })
+
+    return jsonify(results), 200

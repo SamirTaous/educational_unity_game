@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using SimpleJSON;
+using UnityEngine.Networking;
 
 public class OpenQuestionManager : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class OpenQuestionManager : MonoBehaviour
     private OpenQuestion[] questions;
     private int currentQuestionIndex = 0;
     private string[] userAnswers;
+    private List<float> scores = new List<float>();
+    private List<string> feedbacks = new List<string>();
+    private string textId = "";
 
     void Start()
     {
@@ -46,15 +50,16 @@ public class OpenQuestionManager : MonoBehaviour
     IEnumerator LoadQuestionsByIndex(int index)
     {
         string url = $"http://localhost:5000/api/text-by-index/{index}";
-        using (UnityEngine.Networking.UnityWebRequest request = UnityEngine.Networking.UnityWebRequest.Get(url))
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
             yield return request.SendWebRequest();
 
-            if (request.result == UnityEngine.Networking.UnityWebRequest.Result.Success)
+            if (request.result == UnityWebRequest.Result.Success)
             {
                 string json = request.downloadHandler.text;
                 var root = JSON.Parse(json);
 
+                textId = root["text"]["id"];
                 string passage = root["text"]["text_content"];
                 if (passageText != null) passageText.text = passage;
 
@@ -106,7 +111,48 @@ public class OpenQuestionManager : MonoBehaviour
 
     void OnNextButtonPressed()
     {
-        userAnswers[currentQuestionIndex] = answerInputField.text.Trim();
+        string answer = answerInputField.text.Trim();
+        string questionText = questions[currentQuestionIndex].question;
+
+        userAnswers[currentQuestionIndex] = answer;
+        StartCoroutine(SendAnswerForFeedback(answer, questionText));
+    }
+
+    IEnumerator SendAnswerForFeedback(string answer, string question)
+    {
+        string url = "http://localhost:8000/feedback";
+
+        FeedbackRequest requestData = new FeedbackRequest
+        {
+            reponse = answer,
+            question = question,
+            niveau = SessionData.level,
+            difficulte = SessionData.level
+        };
+
+        string jsonData = JsonUtility.ToJson(requestData);
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string jsonResponse = request.downloadHandler.text;
+            FeedbackResponse response = JsonUtility.FromJson<FeedbackResponse>(jsonResponse);
+            scores.Add(response.note);
+            feedbacks.Add(response.feedback);
+        }
+        else
+        {
+            Debug.LogError("API error: " + request.error);
+            scores.Add(0f);
+            feedbacks.Add("Erreur lors de l’évaluation.");
+        }
+
         currentQuestionIndex++;
         DisplayCurrentQuestion();
     }
@@ -124,72 +170,69 @@ public class OpenQuestionManager : MonoBehaviour
         showTextButton.gameObject.SetActive(false);
 
         finishPanel.SetActive(true);
-        finishTitleText.text = "Thank you!";
-        finishSummaryText.text = "Your answers have been saved.";
 
-        SaveAnswersToJsonFile();
+        float total = 0f;
+        string resultText = "Résultats par question:\n";
+
+        for (int i = 0; i < scores.Count; i++)
+        {
+            total += scores[i];
+            resultText += $"- Q{i + 1}: {scores[i]}/5\n";
+        }
+
+        float average = scores.Count > 0 ? total / scores.Count : 0f;
+        resultText += $"\nScore final: {average:F2}/5";
+
+        finishTitleText.text = "Merci !";
+        finishSummaryText.text = resultText;
+
+        SaveAnswersToMongoDB();
         StartCoroutine(FadeInFinishPanel());
     }
 
-    void ShowPassageView()
-    {
-        questionPanel.SetActive(false);
-        questionTitle.SetActive(false);
-        nextButton.gameObject.SetActive(false);
-        progressBar.gameObject.SetActive(false);
-        progressText.gameObject.SetActive(false);
-        showTextButton.gameObject.SetActive(false);
+    void SaveAnswersToMongoDB()
+{
+    string url = "http://localhost:5000/api/open-question-answers";
 
-        passagePanel.SetActive(true);
+    float total = 0f;
+    for (int i = 0; i < scores.Count; i++) total += scores[i];
+    float average = scores.Count > 0 ? total / scores.Count : 0f;
+
+    JSONArray answerArray = new JSONArray();
+    for (int i = 0; i < questions.Length; i++)
+    {
+        JSONObject obj = new JSONObject();
+        obj["question"] = questions[i].question;
+        obj["answer"] = userAnswers[i];
+        obj["score"] = scores[i];
+        obj["feedback"] = feedbacks[i];
+        answerArray.Add(obj);
     }
 
-    void HidePassageAndResume()
+    JSONObject root = new JSONObject();
+    root["student_id"] = SessionData.user_id;
+    root["text_id"] = textId;
+    root["answers"] = answerArray;
+    root["final_score"] = average;
+
+    Debug.Log("JSON sent to MongoDB endpoint:\n" + root.ToString());
+    StartCoroutine(PostJsonToAPI(url, root.ToString()));
+}
+
+    IEnumerator PostJsonToAPI(string url, string jsonData)
     {
-        passagePanel.SetActive(false);
-        questionPanel.SetActive(true);
-        questionTitle.SetActive(true);
-        nextButton.gameObject.SetActive(true);
-        progressBar.gameObject.SetActive(true);
-        progressText.gameObject.SetActive(true);
-        showTextButton.gameObject.SetActive(true);
-    }
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
 
-    void SaveAnswersToJsonFile()
-    {
-        string folderPath = Path.Combine(Application.dataPath, "OpenAnswers");
-        if (!Directory.Exists(folderPath))
-        {
-            Directory.CreateDirectory(folderPath);
-        }
+        yield return request.SendWebRequest();
 
-        string path = Path.Combine(folderPath, "user_answers.json");
-
-        List<AnswerRecord> allAnswers = new List<AnswerRecord>();
-
-        if (File.Exists(path))
-        {
-            string existingJson = File.ReadAllText(path);
-            AnswerList existingList = JsonUtility.FromJson<AnswerList>(existingJson);
-            if (existingList != null && existingList.answers != null)
-            {
-                allAnswers.AddRange(existingList.answers);
-            }
-        }
-
-        for (int i = 0; i < questions.Length; i++)
-        {
-            allAnswers.Add(new AnswerRecord
-            {
-                question = questions[i].question,
-                answer = userAnswers[i]
-            });
-        }
-
-        AnswerList newList = new AnswerList { answers = allAnswers.ToArray() };
-        string json = JsonUtility.ToJson(newList, true);
-        File.WriteAllText(path, json);
-
-        Debug.Log("Answers saved to JSON at: " + path);
+        if (request.result == UnityWebRequest.Result.Success)
+            Debug.Log("Answers saved to MongoDB.");
+        else
+            Debug.LogError("MongoDB save failed: " + request.error);
     }
 
     void RestartQuiz()
@@ -200,6 +243,30 @@ public class OpenQuestionManager : MonoBehaviour
     void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    void ShowPassageView()
+{
+    questionPanel.SetActive(false);
+    questionTitle.SetActive(false);
+    nextButton.gameObject.SetActive(false);
+    progressBar.gameObject.SetActive(false);
+    progressText.gameObject.SetActive(false);
+    showTextButton.gameObject.SetActive(false);
+
+    passagePanel.SetActive(true);
+}
+
+
+    void HidePassageAndResume()
+    {
+        passagePanel.SetActive(false);
+        questionPanel.SetActive(true);
+        questionTitle.SetActive(true);
+        nextButton.gameObject.SetActive(true);
+        progressBar.gameObject.SetActive(true);
+        progressText.gameObject.SetActive(true);
+        showTextButton.gameObject.SetActive(true);
     }
 
     IEnumerator FadeInFinishPanel()
@@ -227,11 +294,31 @@ public class OpenQuestionManager : MonoBehaviour
     {
         public string question;
         public string answer;
+        public float score;
+        public string feedback;
     }
 
     [System.Serializable]
-    public class AnswerList
+    public class MongoSavePayload
     {
+        public string student_id;
+        public string text_id;
         public AnswerRecord[] answers;
+    }
+
+    [System.Serializable]
+    public class FeedbackRequest
+    {
+        public string reponse;
+        public string question;
+        public string niveau;
+        public string difficulte;
+    }
+
+    [System.Serializable]
+    public class FeedbackResponse
+    {
+        public string feedback;
+        public float note;
     }
 }

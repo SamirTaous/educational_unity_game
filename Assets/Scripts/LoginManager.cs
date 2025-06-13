@@ -9,13 +9,20 @@ public class LoginManager : MonoBehaviour
 {
     public TMP_InputField usernameInput;
     public TMP_InputField passwordInput;
+
+    public TMP_Text usernamePlaceholderText;
+    public TMP_Text passwordPlaceholderText;
     public TMP_Text errorText;
+    public TMP_Text loginButtonText;
+
+    public TMP_FontAsset arabicFont;
     public Button loginButton;
 
     private void Start()
     {
         errorText.gameObject.SetActive(false);
         loginButton.onClick.AddListener(OnLoginClicked);
+        ApplyLanguageFix();
     }
 
     void OnLoginClicked()
@@ -25,7 +32,9 @@ public class LoginManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
-            ShowError("Please enter both username and password.");
+            ShowError(LanguageManager.CurrentLanguage == LanguageManager.Language.Arabic
+                ? "يرجى إدخال اسم المستخدم وكلمة المرور."
+                : "Veuillez entrer le nom d'utilisateur et le mot de passe.");
             return;
         }
 
@@ -34,7 +43,7 @@ public class LoginManager : MonoBehaviour
 
     IEnumerator SendLoginRequest(string username, string password)
     {
-        string url = "http://localhost:5000/auth/login";
+        string url = ServerConfig.Get("auth/login");
 
         LoginRequest payload = new LoginRequest
         {
@@ -54,7 +63,9 @@ public class LoginManager : MonoBehaviour
 
         if (request.result != UnityWebRequest.Result.Success)
         {
-            ShowError("Server error: " + request.error);
+            ShowError(LanguageManager.CurrentLanguage == LanguageManager.Language.Arabic
+                ? "خطأ في الخادم: " + request.error
+                : "Erreur du serveur : " + request.error);
         }
         else
         {
@@ -63,32 +74,26 @@ public class LoginManager : MonoBehaviour
 
             if (responseText.Contains("Invalid credentials") || responseText.Contains("error"))
             {
-                ShowError("Login failed. Check your credentials.");
+                ShowError(LanguageManager.CurrentLanguage == LanguageManager.Language.Arabic
+                    ? "فشل تسجيل الدخول. تحقق من بيانات الاعتماد الخاصة بك."
+                    : "Échec de la connexion. Vérifiez vos identifiants.");
             }
             else
             {
-                // Save session data
                 SessionData.user_id = res.user_id;
                 SessionData.username = res.username;
                 SessionData.role = res.role;
                 SessionData.level = res.level;
 
-                Debug.Log("Login successful. User ID: " + SessionData.user_id);
-                Debug.Log("Role: " + SessionData.role);
+                Debug.Log("Connexion réussie. ID utilisateur : " + SessionData.user_id);
+                Debug.Log("Rôle : " + SessionData.role);
 
-                // Redirect based on role
                 if (SessionData.role == "student")
-                {
                     SceneManager.LoadScene("MainMenu");
-                }
                 else if (SessionData.role == "teacher")
-                {
                     SceneManager.LoadScene("TeacherMenu");
-                }
                 else
-                {
-                    ShowError("Unknown role: " + SessionData.role);
-                }
+                    ShowError("Rôle inconnu : " + SessionData.role);
             }
         }
     }
@@ -97,6 +102,64 @@ public class LoginManager : MonoBehaviour
     {
         errorText.text = message;
         errorText.gameObject.SetActive(true);
+        ApplyLanguageFix();
+    }
+
+    void ApplyLanguageFix()
+    {
+        bool isArabic = LanguageManager.CurrentLanguage == LanguageManager.Language.Arabic;
+
+        // === Error Text ===
+        if (errorText != null)
+        {
+            errorText.alignment = isArabic ? TextAlignmentOptions.Right : TextAlignmentOptions.Left;
+            if (arabicFont != null && isArabic) errorText.font = arabicFont;
+            UpdateFixArabicComponent(errorText, isArabic);
+        }
+
+        // === Placeholder: Username ===
+        if (usernamePlaceholderText != null)
+        {
+            usernamePlaceholderText.text = isArabic ? "أدخل اسم المستخدم..." : "Entrer le nom d’utilisateur...";
+            usernamePlaceholderText.alignment = isArabic ? TextAlignmentOptions.Right : TextAlignmentOptions.Left;
+            if (arabicFont != null && isArabic) usernamePlaceholderText.font = arabicFont;
+            UpdateFixArabicComponent(usernamePlaceholderText, isArabic);
+        }
+
+        // === Placeholder: Password ===
+        if (passwordPlaceholderText != null)
+        {
+            passwordPlaceholderText.text = isArabic ? "أدخل كلمة المرور..." : "Entrer le mot de passe...";
+            passwordPlaceholderText.alignment = isArabic ? TextAlignmentOptions.Right : TextAlignmentOptions.Left;
+            if (arabicFont != null && isArabic) passwordPlaceholderText.font = arabicFont;
+            UpdateFixArabicComponent(passwordPlaceholderText, isArabic);
+        }
+
+        // === Login Button Text ===
+        if (loginButtonText != null)
+        {
+            loginButtonText.text = isArabic ? "تسجيل الدخول" : "Login";
+            loginButtonText.alignment = TextAlignmentOptions.Center;
+            if (arabicFont != null && isArabic) loginButtonText.font = arabicFont;
+            UpdateFixArabicComponent(loginButtonText, isArabic);
+        }
+    }
+
+    void UpdateFixArabicComponent(TMP_Text textComponent, bool isArabic)
+    {
+        if (textComponent == null) return;
+
+        var fixer = textComponent.GetComponent<FixArabicTMProUGUI>();
+        if (isArabic)
+        {
+            if (fixer == null)
+                textComponent.gameObject.AddComponent<FixArabicTMProUGUI>();
+        }
+        else
+        {
+            if (fixer != null)
+                Destroy(fixer);
+        }
     }
 
     [System.Serializable]
