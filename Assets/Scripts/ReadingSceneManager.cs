@@ -11,6 +11,7 @@ public class ReadingSceneManager : MonoBehaviour
 {
     public TMP_Text passageText;
     public TMP_Text wordCountText;
+    public TMP_Text sectionText;
 
     public Button startRecordingButton;
     public Button stopRecordingButton;
@@ -95,7 +96,7 @@ public class ReadingSceneManager : MonoBehaviour
 
     IEnumerator LoadReadingPassageByIndex(int index)
     {
-        string url = $"http://localhost:5000/api/text-by-index/{index}";
+        string url = $"http://localhost:5001/api/text-by-index/{index}";
 
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
@@ -114,7 +115,11 @@ public class ReadingSceneManager : MonoBehaviour
                 if (wrapper != null && wrapper.text != null && !string.IsNullOrEmpty(wrapper.text.text_content))
                 {
                     string passage = wrapper.text.text_content;
-                    if (passageText != null) passageText.text = passage;
+                    if (passageText != null)
+                    {
+                        passageText.text = passage;
+                        ApplyArabicFix(passageText);
+                    }
                     if (wordCountText != null) UpdateWordCount(passage);
                 }
                 else
@@ -269,7 +274,7 @@ public class ReadingSceneManager : MonoBehaviour
 
     IEnumerator PostRecording(string jsonPayload)
     {
-        string url = "http://localhost:5000/api/reading-recordings";
+        string url = "http://localhost:5001/api/reading-recordings";
         UnityWebRequest request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
@@ -295,6 +300,7 @@ public class ReadingSceneManager : MonoBehaviour
         if (finishTitleText != null) finishTitleText.text = "Thank you!";
         if (finishScoreText != null) finishScoreText.text = "Your recording has been saved.";
 
+        if (sectionText != null) sectionText.gameObject.SetActive(false);
         if (passagePanel != null) passagePanel.SetActive(false);
         if (startRecordingButtonObject != null) startRecordingButtonObject.SetActive(false);
         if (stopRecordingButtonObject != null) stopRecordingButtonObject.SetActive(false);
@@ -311,5 +317,12 @@ public class ReadingSceneManager : MonoBehaviour
     void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    void ApplyArabicFix(TMP_Text textComponent)
+    {
+        if (textComponent == null) return;
+        if (textComponent.GetComponent<FixArabicTMProUGUI>() == null)
+            textComponent.gameObject.AddComponent<FixArabicTMProUGUI>();
     }
 }

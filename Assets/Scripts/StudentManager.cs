@@ -40,7 +40,7 @@ public class StudentManager : MonoBehaviour
 
     IEnumerator FetchStudents()
     {
-        UnityWebRequest req = UnityWebRequest.Get("http://localhost:5000/api/students");
+        UnityWebRequest req = UnityWebRequest.Get("http://localhost:5001/api/students");
         yield return req.SendWebRequest();
 
         if (req.result != UnityWebRequest.Result.Success)

@@ -37,7 +37,7 @@ public class ReviewStudentAnswers : MonoBehaviour
 
     IEnumerator PopulateTextDropdown()
     {
-        UnityWebRequest request = UnityWebRequest.Get("http://localhost:5000/api/all");
+        UnityWebRequest request = UnityWebRequest.Get("http://localhost:5001/api/all");
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
@@ -69,7 +69,7 @@ public class ReviewStudentAnswers : MonoBehaviour
 
     IEnumerator LoadTextContent(int index)
     {
-        UnityWebRequest request = UnityWebRequest.Get("http://localhost:5000/api/text-by-index/" + index);
+        UnityWebRequest request = UnityWebRequest.Get("http://localhost:5001/api/text-by-index/" + index);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
@@ -93,7 +93,7 @@ public class ReviewStudentAnswers : MonoBehaviour
 
     IEnumerator FetchAnswers(string textId)
     {
-        UnityWebRequest request = UnityWebRequest.Get("http://localhost:5000/api/open-question-answers/by-text/" + textId);
+        UnityWebRequest request = UnityWebRequest.Get("http://localhost:5001/api/open-question-answers/by-text/" + textId);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
@@ -109,7 +109,7 @@ public class ReviewStudentAnswers : MonoBehaviour
 
     IEnumerator CreateStudentButton(JSONNode answerData, string studentId)
     {
-        UnityWebRequest request = UnityWebRequest.Get("http://localhost:5000/api/students");
+        UnityWebRequest request = UnityWebRequest.Get("http://localhost:5001/api/students");
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
@@ -159,7 +159,7 @@ public class ReviewStudentAnswers : MonoBehaviour
     {
         string jsonData = currentAnswer.ToString();
 
-        UnityWebRequest post = new UnityWebRequest("http://localhost:5000/api/validated-answers", "POST");
+        UnityWebRequest post = new UnityWebRequest("http://localhost:5001/api/validated-answers", "POST");
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
         post.uploadHandler = new UploadHandlerRaw(bodyRaw);
         post.downloadHandler = new DownloadHandlerBuffer();
@@ -180,7 +180,7 @@ public class ReviewStudentAnswers : MonoBehaviour
 
     IEnumerator DeleteOriginal(string id)
     {
-        UnityWebRequest delete = UnityWebRequest.Delete("http://localhost:5000/api/open-question-answers/delete/" + id);
+        UnityWebRequest delete = UnityWebRequest.Delete("http://localhost:5001/api/open-question-answers/delete/" + id);
         yield return delete.SendWebRequest();
 
         if (delete.result == UnityWebRequest.Result.Success)

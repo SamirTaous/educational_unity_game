@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 191.65677, y: -22.180786}
+  m_AnchoredPosition: {x: 184.47716, y: -22.180992}
   m_SizeDelta: {x: 354.6, y: 44.362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24520736
@@ -1522,11 +1522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usernameInput: {fileID: 853930378}
   passwordInput: {fileID: 1152311763}
-  usernamePlaceholderText: {fileID: 1698350546}
-  passwordPlaceholderText: {fileID: 1975032447}
   errorText: {fileID: 1281718047}
-  loginButtonText: {fileID: 1422569382}
-  arabicFont: {fileID: 11400000, guid: 96bd8f24e7452c86b943995a5433e49f, type: 2}
   loginButton: {fileID: 1977935597}
 --- !u!1 &1422569380
 GameObject:
@@ -1539,6 +1535,7 @@ GameObject:
   - component: {fileID: 1422569381}
   - component: {fileID: 1422569383}
   - component: {fileID: 1422569382}
+  - component: {fileID: 1422569384}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1585,10 +1582,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Login
+  m_text: "\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 053c4d971994a952ebd9c934674f25c0, type: 2}
-  m_sharedMaterial: {fileID: 1555103603589243831, guid: 053c4d971994a952ebd9c934674f25c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
+  m_sharedMaterial: {fileID: -923804730128025440, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1664,6 +1661,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422569380}
   m_CullTransparentMesh: 1
+--- !u!114 &1422569384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422569380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &1424019029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,6 +1828,7 @@ GameObject:
   - component: {fileID: 1698350547}
   - component: {fileID: 1698350546}
   - component: {fileID: 1698350545}
+  - component: {fileID: 1698350548}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -1878,10 +1895,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Entrer le nom d'utilisateur...
+  m_text: "\u0623\u062F\u062E\u0644 \u0627\u0633\u0645 \u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 053c4d971994a952ebd9c934674f25c0, type: 2}
-  m_sharedMaterial: {fileID: 1555103603589243831, guid: 053c4d971994a952ebd9c934674f25c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
+  m_sharedMaterial: {fileID: -923804730128025440, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1912,7 +1929,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1957,6 +1974,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698350543}
   m_CullTransparentMesh: 1
+--- !u!114 &1698350548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698350543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &1763815743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1992,7 +2028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 191.65677, y: -22.180786}
+  m_AnchoredPosition: {x: 184.47716, y: -22.180704}
   m_SizeDelta: {x: 354.6, y: 44.362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1763815745
@@ -2021,6 +2057,7 @@ GameObject:
   - component: {fileID: 1975032448}
   - component: {fileID: 1975032447}
   - component: {fileID: 1975032446}
+  - component: {fileID: 1975032449}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -2087,10 +2124,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Entrer le mot de passe...
+  m_text: "\u0623\u062F\u062E\u0644 \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 053c4d971994a952ebd9c934674f25c0, type: 2}
-  m_sharedMaterial: {fileID: 1555103603589243831, guid: 053c4d971994a952ebd9c934674f25c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
+  m_sharedMaterial: {fileID: -923804730128025440, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2121,7 +2158,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2166,6 +2203,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975032444}
   m_CullTransparentMesh: 1
+--- !u!114 &1975032449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975032444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &1977935593
 GameObject:
   m_ObjectHideFlags: 0

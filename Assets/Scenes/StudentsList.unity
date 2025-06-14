@@ -326,6 +326,7 @@ GameObject:
   - component: {fileID: 144985019}
   - component: {fileID: 144985021}
   - component: {fileID: 144985020}
+  - component: {fileID: 144985022}
   m_Layer: 5
   m_Name: Level
   m_TagString: Untagged
@@ -372,10 +373,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Student Level :'
+  m_text: "\u0645\u0633\u062A\u0648\u0649 \u0627\u0644\u062A\u0644\u0645\u064A\u0630
+    :"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
+  m_sharedMaterial: {fileID: -923804730128025440, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -406,7 +408,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -451,6 +453,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144985018}
   m_CullTransparentMesh: 1
+--- !u!114 &144985022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144985018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &157807195
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +483,7 @@ GameObject:
   - component: {fileID: 157807196}
   - component: {fileID: 157807198}
   - component: {fileID: 157807197}
+  - component: {fileID: 157807199}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -508,10 +530,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back
+  m_text: "\u0639\u0648\u062F\u0629"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
+  m_sharedMaterial: {fileID: -923804730128025440, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -587,6 +609,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157807195}
   m_CullTransparentMesh: 1
+--- !u!114 &157807199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157807195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &187097293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1210,7 @@ GameObject:
   - component: {fileID: 609473468}
   - component: {fileID: 609473470}
   - component: {fileID: 609473469}
+  - component: {fileID: 609473471}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1215,10 +1257,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Delete Student
+  m_text: "\u062D\u0630\u0641 \u0627\u0644\u062A\u0644\u0645\u064A\u0630"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
+  m_sharedMaterial: {fileID: -923804730128025440, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1294,6 +1336,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609473467}
   m_CullTransparentMesh: 1
+--- !u!114 &609473471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609473467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &631302732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 159.3466, y: -299.1308}
+  m_AnchoredPosition: {x: 159.3466, y: -902.6291}
   m_SizeDelta: {x: 321.5264, y: 598.2616}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &631302734
@@ -1542,6 +1603,7 @@ GameObject:
   - component: {fileID: 689663455}
   - component: {fileID: 689663453}
   - component: {fileID: 689663454}
+  - component: {fileID: 689663457}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -1569,10 +1631,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter Student Name...
+  m_text: "\u0623\u062F\u062E\u0644 \u0627\u0633\u0645 \u0627\u0644\u062A\u0644\u0645\u064A\u0630..."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
+  m_sharedMaterial: {fileID: -923804730128025440, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1603,7 +1665,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1687,6 +1749,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &689663457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689663452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &831642043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,6 +1916,7 @@ GameObject:
   - component: {fileID: 864441868}
   - component: {fileID: 864441870}
   - component: {fileID: 864441869}
+  - component: {fileID: 864441871}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1881,10 +1963,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Change
+  m_text: "\u062A\u063A\u064A\u064A\u0631"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
+  m_sharedMaterial: {fileID: -923804730128025440, guid: 0d38aff0c9844e2dc9b022f52dd66c08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1960,6 +2042,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864441867}
   m_CullTransparentMesh: 1
+--- !u!114 &864441871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864441867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &881942635
 GameObject:
   m_ObjectHideFlags: 0
@@ -3825,6 +3926,7 @@ GameObject:
   - component: {fileID: 1853691416}
   - component: {fileID: 1853691418}
   - component: {fileID: 1853691417}
+  - component: {fileID: 1853691419}
   m_Layer: 5
   m_Name: SectionTitle
   m_TagString: Untagged
@@ -3871,10 +3973,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Manage Students
+  m_text: "\u0625\u062F\u0627\u0631\u0629 \u0627\u0644\u062A\u0644\u0627\u0645\u064A\u0630"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 053c4d971994a952ebd9c934674f25c0, type: 2}
-  m_sharedMaterial: {fileID: 1555103603589243831, guid: 053c4d971994a952ebd9c934674f25c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dbe8cf520d0d4cb8c9ed828642fb9ba6, type: 2}
+  m_sharedMaterial: {fileID: 6435855221458641833, guid: dbe8cf520d0d4cb8c9ed828642fb9ba6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3905,7 +4007,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3950,6 +4052,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853691415}
   m_CullTransparentMesh: 1
+--- !u!114 &1853691419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853691415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127a1db2065fc95da97e75e1bd336e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAlreadySet: 1
+  updateInRealTime: 1
+  updateOnlyOnChange: 1
+  useTashkeel: 0
+  useHinduNumbers: 0
+  editTextHere: 0
+  customText: 
 --- !u!1 &1870165651
 GameObject:
   m_ObjectHideFlags: 0

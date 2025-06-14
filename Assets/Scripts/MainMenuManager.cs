@@ -11,30 +11,44 @@ public class MainMenuManager : MonoBehaviour
     public TMP_Text userIdText;
     public TMP_Dropdown textDropdown;
 
-    private List<string> textIds = new List<string>(); 
+    private List<string> textIds = new List<string>();
 
-    public TMP_Text welcomeText;     
-    public TMP_Text badgeText;        
+    public TMP_Text welcomeText;
+    public TMP_Text badgeText;
 
     void Start()
     {
         if (!string.IsNullOrEmpty(SessionData.user_id))
-            userIdText.text = "User ID: " + SessionData.user_id;
+        {
+            userIdText.text = "معرف المستخدم: " + SessionData.user_id;
+
+            if (userIdText.GetComponent<FixArabicTMProUGUI>() == null)
+            {
+                userIdText.gameObject.AddComponent<FixArabicTMProUGUI>();
+            }
+        }
         else
-            userIdText.text = "Not logged in.";
+        {
+            userIdText.text = "غير متصل";
+
+            if (userIdText.GetComponent<FixArabicTMProUGUI>() == null)
+            {
+                userIdText.gameObject.AddComponent<FixArabicTMProUGUI>();
+            }
+        }
 
         if (!string.IsNullOrEmpty(SessionData.username))
         {
-            welcomeText.text = $"مرحبا بك في اللعبة العربية";
+            welcomeText.text = $"مرحباً، {SessionData.username}";
             badgeText.text = SessionData.username.Substring(0, 1).ToUpper();
-        }   
+        }
 
         StartCoroutine(PopulateTextDropdown());
     }
 
     IEnumerator PopulateTextDropdown()
     {
-        string url = "http://localhost:5000/api/all";
+        string url = "http://localhost:5001/api/all";
         UnityWebRequest request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
 
@@ -49,9 +63,9 @@ public class MainMenuManager : MonoBehaviour
             for (int i = 0; i < allTexts.Count; i++)
             {
                 var item = allTexts[i];
-                string label = $"Text {i} ({item["questions"].Count} questions)";
+                string label = $"{i}";
                 options.Add(label);
-                textIds.Add(item["id"]);  // Optional
+                textIds.Add(item["id"]);
             }
 
             textDropdown.AddOptions(options);

@@ -9,9 +9,23 @@ public class TeacherMenuManager : MonoBehaviour
     void Start()
     {
         if (!string.IsNullOrEmpty(SessionData.user_id))
-            userIdText.text = "User ID: " + SessionData.user_id;
+        {
+            userIdText.text = "معرف المستخدم: " + SessionData.user_id;
+
+            if (userIdText.GetComponent<FixArabicTMProUGUI>() == null)
+            {
+                userIdText.gameObject.AddComponent<FixArabicTMProUGUI>();
+            }
+        }
         else
-            userIdText.text = "Not logged in.";
+        {
+            userIdText.text = "غير متصل";
+
+            if (userIdText.GetComponent<FixArabicTMProUGUI>() == null)
+            {
+                userIdText.gameObject.AddComponent<FixArabicTMProUGUI>();
+            }
+        }
     }
 
     public void LoadStudentsList()

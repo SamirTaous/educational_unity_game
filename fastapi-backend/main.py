@@ -1,114 +1,136 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import google.generativeai as genai
-import json
 import re
-from typing import Optional
-from fastapi.middleware.cors import CORSMiddleware
 
-# Configuration de l'API
-app = FastAPI(title="API Feedback Pédagogique",
-            description="API pour générer des feedbacks pédagogiques automatisés")
-
-# Configuration CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # À modifier en production pour plus de sécurité
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Configuration de Gemini (à remplacer par votre clé API)
+# --- Configuration API Gemini ---
 GOOGLE_API_KEY = "AIzaSyDAS9yKZDgJGn_vcAyficnAzA3JsMMc5gg"
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-# Modèles de données
-class FeedbackRequest(BaseModel):
-    reponse: str
-    question: str
+app = FastAPI(title="Évaluation Automatique Multilingue")
+
+# --- Modèles d’entrée et sortie ---
+class EvalRequest(BaseModel):
     niveau: str
-    difficulte: str
+    question: str
+    reponse_ref: str
+    reponse_eleve: str
 
-class FeedbackResponse(BaseModel):
-    feedback: str
+class EvalResponse(BaseModel):
     note: float
+    feedback: str
 
-def generer_feedback(reponse, question, niveau, difficulte):
-    prompt = f"""
-Tu es un enseignant marocain bienveillant. Tu donnes un feedback pédagogique à un élève du niveau {niveau}, avec une difficulté de question : {difficulte}.
+# --- Fonction utilitaire : appel Gemini ---
+def ask_gemini(prompt, as_number=False):
+    response = model.generate_content(prompt, generation_config={"temperature": 0})
+    text = response.text.strip()
+    if as_number:
+        match = re.search(r"\b\d+(\.\d+)?\b", text)
+        if match:
+            return float(match.group())
+        raise ValueError(f"Aucune note trouvée : {text}")
+    return text
 
-Voici la question posée à l'élève : "{question}"
-Et voici sa réponse : "{reponse}"
+# === 🚀 ÉVALUATION ARABE ===
+def eval_grammaire_arabe(rep, niveau):
+    return ask_gemini(f"""أنت أستاذ متخصص في النحو العربي، وتقيم جملة لطالب في المستوى {niveau}.
+النص: "{rep}"
+قيّم جودة التركيب النحوي بدقة، على مقياس من 10، مع أخذ القواعد النحوية المناسبة للمستوى بعين الاعتبار.
+أعط رقماً فقط (بدون شرح).""", as_number=True)
 
-Tu dois adapter ton jugement selon le niveau de l'élève :
-- Si l'élève est jeune (CP, CE1…), sois plus indulgent.
-- Si l'élève est plus avancé (CM1, CM2…), sois plus exigeant.
-Note sur 5, selon cette grille :
-- 5 : Réponse très bien formulée, complète, adaptée au niveau, sans faute ou avec une très légère. L'élève montre une bonne compréhension.
-- 4 : Bonne réponse, mais il manque un petit élément de précision ou la formulation est un peu maladroite. Quelques fautes mineures possibles.
-- 3 : Réponse partiellement correcte, mais incomplète, ou formulation très maladroite. Il peut y avoir plusieurs erreurs de grammaire ou d'orthographe.
-- 2 : Réponse compréhensible mais très insuffisante, vague, ou très mal formulée. Beaucoup d'erreurs. Manque d'effort ou de clarté.
-- 1 : Réponse hors sujet, très pauvre, ou incompréhensible. Ne montre pas de compréhension de la question. Mauvaise grammaire ou vocabulaire.
+def eval_orthographe_arabe(rep, niveau):
+    return ask_gemini(f"""أنت خبير في الإملاء باللغة العربية. هذه إجابة طالب في المستوى {niveau}:
+"{rep}"
+قيّم الإملاء فقط على 10، مع مراعاة الأخطاء الإملائية البسيطة والشائعة حسب المستوى. أجب برقم فقط.""", as_number=True)
 
-Répondre UNIQUEMENT au format JSON suivant, sans aucun texte avant ou après les accolades :
-{{"feedback": "phrase courte", "note": nombre}}
-"""
+def eval_validite_arabe(rep, ref, niveau):
+    return ask_gemini(f"""السياق: تقييم مدى صحة إجابة طالب في المستوى {niveau}.
+الإجابة المرجعية: "{ref}"
+إجابة الطالب: "{rep}"
+قيّم مدى تطابق المعنى والدقة المفهومية على 10. أجب فقط برقم.""", as_number=True)
+
+def eval_contenu_arabe(rep, ref):
+    return ask_gemini(f"""قم بتقييم جودة المحتوى التعليمي في هذه الإجابة.
+الإجابة المرجعية: "{ref}"
+إجابة الطالب: "{rep}"
+قيم مدى شمولية وتفصيل المحتوى على 10. أجب فقط برقم.""", as_number=True)
+
+def eval_mots_cles_arabe(rep, ref):
+    return ask_gemini(f"""تقييم عدد وأهمية الكلمات المفتاحية الواردة في إجابة الطالب مقارنة بالإجابة المرجعية.
+المرجعية: "{ref}"
+إجابة الطالب: "{rep}"
+قيّم التغطية الاصطلاحية من 10. أجب فقط برقم.""", as_number=True)
+
+def generate_feedback_arabe(rep, niveau):
+    return ask_gemini(f"""أنت معلم مشجع ولديك خبرة في التعامل مع طلاب في المستوى {niveau}.
+إجابة الطالب: "{rep}"
+اكتب ملاحظة تحفيزية قصيرة تُشجّع الطالب على تحسين مستواه دون إحباطه.""")
+
+@app.post("/eval", response_model=EvalResponse)
+def evaluer_arabe(req: EvalRequest):
     try:
-        response = model.generate_content(prompt)
-        
-        # Extraire uniquement le JSON de la réponse
-        json_match = re.search(r'\{.*\}', response.text, re.DOTALL)
-        if not json_match:
-            return {"feedback": "Format de réponse invalide", "note": 0}
-            
-        json_str = json_match.group(0)
-        
-        # Nettoyer la chaîne JSON
-        json_str = json_str.strip()
-        json_str = re.sub(r'[\n\r\t]', '', json_str)
-        
-        # Parser le JSON
-        result = json.loads(json_str)
-        
-        # Valider le format
-        if not isinstance(result, dict):
-            return {"feedback": "Format de réponse invalide", "note": 0}
-        if "feedback" not in result or "note" not in result:
-            return {"feedback": "Réponse incomplète", "note": 0}
-        if not isinstance(result["note"], (int, float)) or not isinstance(result["feedback"], str):
-            return {"feedback": "Types de données invalides", "note": 0}
-        if not (0 <= result["note"] <= 5):
-            return {"feedback": "Note hors limites", "note": 0}
-            
-        return result
-        
-    except Exception as e:
-        return {
-            "feedback": f"Erreur technique : {str(e)[:100]}", 
-            "note": 0
+        niveau = req.niveau.strip()
+        notes = {
+            "grammaire": eval_grammaire_arabe(req.reponse_eleve, niveau),
+            "orthographe": eval_orthographe_arabe(req.reponse_eleve, niveau),
+            "validite": eval_validite_arabe(req.reponse_eleve, req.reponse_ref, niveau),
+            "contenu": eval_contenu_arabe(req.reponse_eleve, req.reponse_ref),
+            "mots_cles": eval_mots_cles_arabe(req.reponse_eleve, req.reponse_ref)
         }
-
-# Routes API
-@app.get("/")
-async def root():
-    return {"message": "Bienvenue sur l'API de feedback pédagogique"}
-
-@app.post("/feedback", response_model=FeedbackResponse)
-async def obtenir_feedback(request: FeedbackRequest):
-    try:
-        resultat = generer_feedback(
-            request.reponse,
-            request.question,
-            request.niveau,
-            request.difficulte
-        )
-        return resultat
+        note_finale = round(sum(notes.values()) / len(notes), 1)
+        feedback = generate_feedback_arabe(req.reponse_eleve, niveau)
+        return {"note": note_finale, "feedback": feedback}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# Endpoint pour vérifier la santé de l'API
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+# === 🇫🇷 ÉVALUATION FRANÇAISE ===
+def eval_grammaire_fr(rep, niveau):
+    return ask_gemini(f"""Tu es un enseignant expérimenté en grammaire française. Voici une phrase d’un élève de niveau {niveau} :
+"{rep}"
+Évalue uniquement la **structure grammaticale** (accords, conjugaison, syntaxe) sur 10. Réponds uniquement par un nombre.""", as_number=True)
+
+def eval_orthographe_fr(rep, niveau):
+    return ask_gemini(f"""Tu es un correcteur expert en orthographe pour le niveau {niveau}.
+Voici la phrase d’un élève : "{rep}"
+Note **l’orthographe des mots** (y compris les accents et homophones) sur 10. Réponds uniquement avec un nombre.""", as_number=True)
+
+def eval_validite_fr(rep, ref, niveau):
+    return ask_gemini(f"""Contexte : un élève de niveau {niveau} a répondu à une question.
+Réponse attendue : "{ref}"
+Réponse de l’élève : "{rep}"
+Évalue la **cohérence sémantique** et la pertinence par rapport à la réponse attendue, sur 10. Réponds uniquement avec un chiffre.""", as_number=True)
+
+def eval_contenu_fr(rep, ref):
+    return ask_gemini(f"""Tu es professeur de sciences. Compare cette réponse à la référence suivante :
+Référence : "{ref}"
+Réponse élève : "{rep}"
+Note la **richesse du contenu explicatif** sur 10. Réponds seulement par un nombre.""", as_number=True)
+
+def eval_mots_cles_fr(rep, ref):
+    return ask_gemini(f"""Tu évalues la présence des mots-clés importants dans une réponse d’élève.
+Référence : "{ref}"
+Réponse : "{rep}"
+Note la **présence et l’usage correct** des mots-clés essentiels sur 10. Réponds uniquement avec un chiffre.""", as_number=True)
+
+def generate_feedback_fr(rep, niveau):
+    return ask_gemini(f"""Tu es un enseignant encourageant et bienveillant face à un élève de niveau {niveau}.
+Voici sa réponse : "{rep}"
+Donne un **court commentaire motivant** pour féliciter ou inciter l’élève à progresser.""")
+
+@app.post("/eval-fr", response_model=EvalResponse)
+def evaluer_francais(req: EvalRequest):
+    try:
+        niveau = req.niveau.strip()
+        notes = {
+            "grammaire": eval_grammaire_fr(req.reponse_eleve, niveau),
+            "orthographe": eval_orthographe_fr(req.reponse_eleve, niveau),
+            "validite": eval_validite_fr(req.reponse_eleve, req.reponse_ref, niveau),
+            "contenu": eval_contenu_fr(req.reponse_eleve, req.reponse_ref),
+            "mots_cles": eval_mots_cles_fr(req.reponse_eleve, req.reponse_ref)
+        }
+        note_finale = round(sum(notes.values()) / len(notes), 1)
+        feedback = generate_feedback_fr(req.reponse_eleve, niveau)
+        return {"note": note_finale, "feedback": feedback}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

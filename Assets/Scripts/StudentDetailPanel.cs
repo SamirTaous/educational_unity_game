@@ -42,9 +42,6 @@ public class StudentDetailPanel : MonoBehaviour
         currentUsername = username;
         usernameText.text = username;
 
-        if (currentLevelText != null)
-            currentLevelText.text = "Student Level: " + level;
-
         int index = levelDropdown.options.FindIndex(o => o.text == level);
         if (index >= 0)
             levelDropdown.value = index;
@@ -72,7 +69,7 @@ public class StudentDetailPanel : MonoBehaviour
 
     IEnumerator UpdateLevel(string username, string newLevel)
     {
-        string url = "http://localhost:5000/api/students/update-level";
+        string url = "http://localhost:5001/api/students/update-level";
         string json = $"{{\"username\":\"{username}\", \"level\":\"{newLevel}\"}}";
 
         UnityWebRequest req = new UnityWebRequest(url, "POST");
@@ -100,7 +97,7 @@ public class StudentDetailPanel : MonoBehaviour
 
     IEnumerator DeleteStudent(string username)
     {
-        string url = $"http://localhost:5000/api/students/delete/{username}";
+        string url = $"http://localhost:5001/api/students/delete/{username}";
         UnityWebRequest req = UnityWebRequest.Delete(url);
 
         yield return req.SendWebRequest();
@@ -119,4 +116,5 @@ public class StudentDetailPanel : MonoBehaviour
             Debug.LogError("Failed to delete student: " + req.error);
         }
     }
+    
 }
